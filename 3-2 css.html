@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>403张天润</title>
+    <style>
+        h3{
+            color: red;
+        }
+        p{
+            color: blue;
+        }
+        /*标签选择器，选择器名称为标签*/
+        #box{
+            width: 300px;
+            height: 200px;
+            background-color: #ccc;
+        }
+        /*id选择器，选择器名称为id属性值，前面加#*/
+        .n1{
+            color: #7A9;
+        }
+        /* 需求1 h2黑底白字 */
+        h2 {
+            background-color: black;
+            color: white;
+        }
+        /* 名字每个字单独颜色 */
+        .n1 { color: red; }
+        .n2 { color: orange; }
+        .n3 { color: green; }
+        /* “选择器”文字蓝色类 */
+        .blue-text {
+            color: white;
+        }
+        /* 新增第二个box */
+        #box2 {
+            width: 300px;
+            height: 100px;
+            background-color: #abc;
+            margin-top:20px;
+            line-height:100px;
+            font-size:30px;
+        }
+    </style>
+</head>
+<body>
+    <h2>层叠样式表</h2>
+    <div id="box">
+        <h3>CSS<span class="blue-text">选择器</span></h3>
+        <p><span class="n1">张</span><span class="n2">天</span><span class="n3">润</span></p>
+        <p>CSS属性</p>
+    </div>
+    <!-- 需求4：新加一个box，box内文字是403 -->
+    <div id="box2">403</div>
+    <!-- 1.h2黑底白字 2.名字每个字不同颜色且在同一行 3.选择器三个字是白色 4.新加一个box，box内文字是403 -->
+</body>
+</html>

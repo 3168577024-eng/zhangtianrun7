@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transition 过渡效果</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        img {
+            display: block;
+            width: 100%;
+        }
+
+        ul,
+        ol {
+            list-style: none;
+        }
+
+        .tlist {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .tlist li {
+            position: relative;
+            width: calc((100% - 16px) / 3);
+            aspect-ratio: 4 / 3;
+            overflow: hidden;
+        }
+
+        .tlist img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .text {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 33px;
+            overflow: hidden;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            transition: height 0.5s ease;
+        }
+
+        .text h3 {
+            height: 33px;
+            line-height: 33px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: normal;
+        }
+
+        .text p {
+            height: 40px;
+            padding: 8px;
+            font-size: 12px;
+            line-height: 1.5;
+            overflow: hidden;
+            text-indent: 2em;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .tlist li:hover img {
+            transform: scale(1.2);
+        }
+
+        .tlist li:nth-child(3n+1):hover img {
+            transform: scale(1.7);
+        }
+
+        .tlist li:nth-child(3n+2):hover .text {
+            height: 100%;
+        }
+
+        .tlist li:nth-child(3n+2):hover .text p {
+            opacity: 1;
+        }
+
+        .tlist li:nth-child(3n):hover .text {
+            height: 83px;
+        }
+
+        .tlist li:nth-child(3n):hover .text p {
+            opacity: 1;
+        }
+    </style>
+    
+</head>
+<body>
+    <h2>transition 过渡</h2>
+    <ul class="tlist">
+        <li>
+            <img src="./img/2cc9882926fcbce73806e15bcf14a8ef.jpg">
+            <div class="text">
+                <h3>张天润的标题1</h3>
+                <p>
+                    下面的文字是绝对定位，p元素默认隐藏，只显示h3，当鼠标hover的时候，会有动画效果
+                </p>
+            </div>
+        </li>
+        <li>
+            <img src="./img/60781bd7e93b46159d7de266bdf97b22.png">
+            <div class="text">
+                <h3>张天润的标题1</h3>
+                <p>
+                    下面的文字是绝对定位，p元素默认隐藏，只显示h3，当鼠标hover的时候，会有动画效果
+                </p>
+            </div>
+        </li>
+        <li>
+            <img src="./img/6311d91963929c2e1578620659212d57.jpg">
+            <div class="text">
+                <h3>张天润的标题1</h3>
+                <p>
+                    下面的文字是绝对定位，p元素默认隐藏，只显示h3，当鼠标hover的时候，会有动画效果
+                </p>
+            </div>
+        </li>
+        <li>
+            <img src="./img/6311d91963929c2e1578620659212d57.jpg">
+            <div class="text">
+                <h3>张天润的标题1</h3>
+                <p>
+                    下面的文字是绝对定位，p元素默认隐藏，只显示h3，当鼠标hover的时候，会有动画效果
+                </p>
+            </div>
+        </li>
+        <li>
+            <img src="./img/adf2314f2e82fb97c8f2fec056904400.jpg">
+            <div class="text">
+                <h3>张天润的标题1</h3>
+                <p>
+                    下面的文字是绝对定位，p元素默认隐藏，只显示h3，当鼠标hover的时候，会有动画效果
+                </p>
+            </div>
+        </li>
+        <li>
+            <img src="./img/2cc9882926fcbce73806e15bcf14a8ef.jpg">
+            <div class="text">
+                <h3>张天润的标题1</h3>
+                <p>
+                    下面的文字是绝对定位，p元素默认隐藏，只显示h3，当鼠标hover的时候，会有动画效果
+                </p>
+            </div>
+        </li>
+        <li>
+            <img src="./img/2631b6cde8f6df72b90b1803cb4bc9a6.jpg">
+            <div class="text">
+                <h3>张天润的标题1</h3>
+                <p>
+                    下面的文字是绝对定位，p元素默认隐藏，只显示h3，当鼠标hover的时候，会有动画效果
+                </p>
+            </div>
+        </li>
+        <li>
+            <img src="./img/2cc9882926fcbce73806e15bcf14a8ef.jpg">
+            <div class="text">
+                <h3>张天润的标题1</h3>
+                <p>
+                    下面的文字是绝对定位，p元素默认隐藏，只显示h3，当鼠标hover的时候，会有动画效果
+                </p>
+            </div>
+        </li>
+        <li>
+            <img src="./img/6311d91963929c2e1578620659212d57.jpg">
+            <div class="text">
+                <h3>张天润的标题1</h3>
+                <p>
+                    下面的文字是绝对定位，p元素默认隐藏，只显示h3，当鼠标hover的时候，会有动画效果
+                </p>
+            </div>
+        </li>
+    </ul>
+</body>
+</html>

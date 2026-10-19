@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS3 3D 动画</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Microsoft YaHei", sans-serif;
+            background: #1a1a2e;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            overflow-x: hidden;
+        }
+
+        h1 {
+            color: #fff;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .zhang_scene {
+            width: 200px;
+            height: 200px;
+            perspective: 600px;
+            margin: 30px 0;
+        }
+
+        .zhang_cube {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: zhang_rotate 8s linear infinite;
+        }
+
+        .zhang_face {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .zhang_front  { background: rgba(233, 30, 99, 0.7);  transform: translateZ(100px); }
+        .zhang_back   { background: rgba(76, 175, 80, 0.7);  transform: rotateY(180deg) translateZ(100px); }
+        .zhang_right  { background: rgba(33, 150, 243, 0.7);  transform: rotateY(90deg) translateZ(100px); }
+        .zhang_left   { background: rgba(255, 152, 0, 0.7);  transform: rotateY(-90deg) translateZ(100px); }
+        .zhang_top    { background: rgba(156, 39, 176, 0.7);  transform: rotateX(90deg) translateZ(100px); }
+        .zhang_bottom { background: rgba(0, 188, 212, 0.7);  transform: rotateX(-90deg) translateZ(100px); }
+
+        @keyframes zhang_rotate {
+            from { transform: rotateX(0deg) rotateY(0deg); }
+            to   { transform: rotateX(360deg) rotateY(360deg); }
+        }
+
+        .zhang_cards {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .zhang_card {
+            width: 150px;
+            height: 200px;
+            perspective: 500px;
+            cursor: pointer;
+        }
+
+        .zhang_card-inner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s ease;
+        }
+
+        .zhang_card:hover .zhang_card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .zhang_card-front,
+        .zhang_card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .zhang_card-front {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .zhang_card-back {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            transform: rotateY(180deg);
+        }
+
+        .zhang_pyramid-scene {
+            width: 200px;
+            height: 200px;
+            perspective: 600px;
+            margin: 30px 0;
+        }
+
+        .zhang_pyramid {
+            width: 0;
+            height: 0;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: zhang_spin 6s linear infinite;
+        }
+
+        @keyframes zhang_spin {
+            from { transform: rotateY(0deg) rotateX(20deg); }
+            to   { transform: rotateY(360deg) rotateX(20deg); }
+        }
+
+        .zhang_section {
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .zhang_section h2 {
+            color: #ccc;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .zhang_carousel-scene {
+            width: 220px;
+            height: 150px;
+            perspective: 700px;
+            margin: 20px auto;
+        }
+
+        .zhang_carousel {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: zhang_carousel-rotate 12s linear infinite;
+        }
+
+        .zhang_carousel-item {
+            position: absolute;
+            width: 220px;
+            height: 150px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: #fff;
+            font-weight: bold;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .zhang_carousel-item:nth-child(1) { background: rgba(233,30,99,0.8);  transform: rotateY(0deg) translateZ(200px); }
+        .zhang_carousel-item:nth-child(2) { background: rgba(76,175,80,0.8);  transform: rotateY(72deg) translateZ(200px); }
+        .zhang_carousel-item:nth-child(3) { background: rgba(33,150,243,0.8);  transform: rotateY(144deg) translateZ(200px); }
+        .zhang_carousel-item:nth-child(4) { background: rgba(255,152,0,0.8);  transform: rotateY(216deg) translateZ(200px); }
+        .zhang_carousel-item:nth-child(5) { background: rgba(156,39,176,0.8); transform: rotateY(288deg) translateZ(200px); }
+
+        @keyframes zhang_carousel-rotate {
+            from { transform: rotateY(0deg); }
+            to   { transform: rotateY(360deg); }
+        }
+
+        .zhang_flip-scene {
+            display: flex;
+            gap: 40px;
+            margin: 20px 0;
+        }
+
+        .zhang_flip-box {
+            width: 100px;
+            height: 100px;
+            perspective: 400px;
+        }
+
+        .zhang_flip-inner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: zhang_flip 3s ease-in-out infinite;
+        }
+
+        .zhang_flip-inner:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .zhang_flip-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .zhang_flip-front {
+            background: rgba(0, 188, 212, 0.8);
+            transform: translateZ(50px);
+        }
+
+        .zhang_flip-back {
+            background: rgba(255, 87, 34, 0.8);
+            transform: rotateY(180deg) translateZ(50px);
+        }
+
+        @keyframes zhang_flip {
+            0%, 100% { transform: rotateY(0deg); }
+            50%      { transform: rotateY(180deg); }
+        }
+    </style>
+</head>
+<body>
+    <h1>CSS3 3D 动画展示</h1>
+
+    <div class="zhang_section">
+        <h2>3D 立方体旋转</h2>
+        <div class="zhang_scene">
+            <div class="zhang_cube">
+                <div class="zhang_face zhang_front">前</div>
+                <div class="zhang_face zhang_back">后</div>
+                <div class="zhang_face zhang_right">右</div>
+                <div class="zhang_face zhang_left">左</div>
+                <div class="zhang_face zhang_top">上</div>
+                <div class="zhang_face zhang_bottom">下</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="zhang_section">
+        <h2>3D 卡片翻转（hover 触发）</h2>
+        <div class="zhang_cards">
+            <div class="zhang_card">
+                <div class="zhang_card-inner">
+                    <div class="zhang_card-front">正面</div>
+                    <div class="zhang_card-back">背面</div>
+                </div>
+            </div>
+            <div class="zhang_card">
+                <div class="zhang_card-inner">
+                    <div class="zhang_card-front">HTML</div>
+                    <div class="zhang_card-back">5</div>
+                </div>
+            </div>
+            <div class="zhang_card">
+                <div class="zhang_card-inner">
+                    <div class="zhang_card-front">CSS</div>
+                    <div class="zhang_card-back">3</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="zhang_section">
+        <h2>3D 旋转木马</h2>
+        <div class="zhang_carousel-scene">
+            <div class="zhang_carousel">
+                <div class="zhang_carousel-item">1</div>
+                <div class="zhang_carousel-item">2</div>
+                <div class="zhang_carousel-item">3</div>
+                <div class="zhang_carousel-item">4</div>
+                <div class="zhang_carousel-item">5</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="zhang_section">
+        <h2>3D 翻转动画</h2>
+        <div class="zhang_flip-scene">
+            <div class="zhang_flip-box">
+                <div class="zhang_flip-inner">
+                    <div class="zhang_flip_face zhang_flip-front">正</div>
+                    <div class="zhang_flip_face zhang_flip-back">反</div>
+                </div>
+            </div>
+            <div class="zhang_flip-box">
+                <div class="zhang_flip-inner">
+                    <div class="zhang_flip_face zhang_flip-front">正</div>
+                    <div class="zhang_flip_face zhang_flip-back">反</div>
+                </div>
+            </div>
+            <div class="zhang_flip-box">
+                <div class="zhang_flip-inner">
+                    <div class="zhang_flip_face zhang_flip-front">正</div>
+                    <div class="zhang_flip_face zhang_flip-back">反</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

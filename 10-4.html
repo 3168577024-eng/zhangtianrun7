@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.8">
+    <title>响应式盒子布局</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            min-width: 320px;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            padding: 2rem 1rem;
+            background: linear-gradient(145deg, #eef4ff, #f8fafc);
+            color: #263238;
+            font-family: Arial, sans-serif;
+        }
+
+        .page {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            margin: 0 0 0.5rem;
+            text-align: center;
+            font-size: 2rem;
+            transition: font-size 0.3s ease;
+        }
+
+        .intro {
+            margin: 0 0 2rem;
+            text-align: center;
+            color: #64748b;
+        }
+
+        .box-grid {
+            display: grid;
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        .box {
+            min-height: 180px;
+            padding: 1.25rem;
+            border: 1px solid #dbe3ef;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.92);
+            box-shadow: 0 8px 24px rgba(30, 41, 59, 0.08);
+            color: #334155;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .box:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 30px rgba(30, 41, 59, 0.14);
+        }
+
+        .box strong {
+            display: block;
+            margin-bottom: 0.75rem;
+            color: #2563eb;
+            font-size: 1.25rem;
+        }
+
+        .box p {
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        @media (min-width: 600px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .box-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (min-width: 900px) {
+            h1 {
+                font-size: 3rem;
+            }
+
+            .box-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        @media (min-width: 1200px) {
+            h1 {
+                font-size: 3.5rem;
+            }
+
+            .box-grid {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="page">
+        <h1>张天润</h1>
+        <p class="intro">viewport 变化时，单行显示的盒子数量会同步变化</p>
+
+        <section class="box-grid" aria-label="响应式盒子布局">
+            <article class="box">
+                <strong>盒子 1</strong>
+                <p>在 320px 至 599px 中，一行显示 1 个盒子。</p>
+            </article>
+            <article class="box">
+                <strong>盒子 2</strong>
+                <p>在 600px 至 899px 中，一行显示 2 个盒子。</p>
+            </article>
+            <article class="box">
+                <strong>盒子 3</strong>
+                <p>在 900px 至 1199px 中，一行显示 3 个盒子。</p>
+            </article>
+            <article class="box">
+                <strong>盒子 4</strong>
+                <p>在 1200px 及以上中，一行显示 4 个盒子。</p>
+            </article>
+            <article class="box">
+                <strong>盒子 5</strong>
+                <p>响应式布局根据当前视口自动调整。</p>
+            </article>
+            <article class="box">
+                <strong>盒子 6</strong>
+                <p>每个盒子都使用统一的响应式样式。</p>
+            </article>
+            <article class="box">
+                <strong>盒子 7</strong>
+                <p>页面最小宽度为 320px，避免超出视口。</p>
+            </article>
+            <article class="box">
+                <strong>盒子 8</strong>
+                <p>通过媒体查询实现不同的网格列数。</p>
+            </article>
+        </section>
+    </main>
+</body>
+</html>

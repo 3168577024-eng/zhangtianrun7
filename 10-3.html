@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视口背景颜色变化</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+            margin: 0;
+        }
+
+        body {
+            display: grid;
+            place-items: center;
+            min-height: 100vh;
+            background-color: #ff6b6b;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            transition: background-color 0.5s ease;
+        }
+
+        .content {
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 4rem;
+            line-height: 1.2;
+        }
+
+        p {
+            margin: 1rem 0 0;
+            font-size: 1.25rem;
+        }
+
+        @media (min-width: 601px) and (max-width: 900px) {
+            body {
+                background-color: #ffd166;
+                color: #3b2f00;
+            }
+
+            h1 {
+                font-size: 5rem;
+            }
+
+            p {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (min-width: 901px) {
+            body {
+                background-color: #4ecdc4;
+                color: #063b3a;
+            }
+
+            h1 {
+                font-size: 6rem;
+            }
+
+            p {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="content">
+        <h1>张天润</h1>
+        <p>视口变化，背景与文字同步变化</p>
+    </main>
+</body>
+</html>

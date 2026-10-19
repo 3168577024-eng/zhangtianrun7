@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="张天润403《高级网页设计》课堂实践作品集入口">
+    <title>张天润403｜高级网页设计课堂实践</title>
+    <style>
+        :root {
+            --ink: #19302c;
+            --muted: #62716c;
+            --paper: #f6f1e8;
+            --surface: #fffdf8;
+            --line: #d9ded5;
+            --coral: #d9684e;
+            --coral-dark: #ae4938;
+            --mint: #dce9dc;
+            --yellow: #f1cc6b;
+            --shadow: 0 18px 45px rgba(32, 52, 47, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            color: var(--ink);
+            background:
+                radial-gradient(circle at 8% 12%, rgba(241, 204, 107, 0.22), transparent 22rem),
+                linear-gradient(135deg, #f6f1e8 0%, #edf3eb 52%, #f8eee8 100%);
+            font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+            line-height: 1.7;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        .page-shell {
+            width: min(1120px, calc(100% - 40px));
+            margin: 0 auto;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 28px 0 16px;
+            font-size: 13px;
+            letter-spacing: 0.12em;
+        }
+
+        .brand-mark {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+        }
+
+        .brand-dot {
+            width: 12px;
+            height: 12px;
+            background: var(--coral);
+            border-radius: 50%;
+            box-shadow: 7px -4px 0 var(--yellow);
+        }
+
+        .topbar a {
+            text-decoration: none;
+            color: var(--muted);
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            min-height: 490px;
+            align-items: center;
+            gap: 58px;
+            padding: 70px 0 90px;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            margin: 0 0 20px;
+            color: var(--coral-dark);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+        }
+
+        h1,
+        h2,
+        h3,
+        p {
+            margin-top: 0;
+        }
+
+        h1 {
+            max-width: 720px;
+            margin-bottom: 26px;
+            font-family: Georgia, "Noto Serif SC", serif;
+            font-size: clamp(42px, 7vw, 78px);
+            font-weight: 700;
+            line-height: 1.08;
+            letter-spacing: 0;
+        }
+
+        h1 span {
+            color: var(--coral);
+        }
+
+        .hero-copy {
+            max-width: 590px;
+            color: var(--muted);
+            font-size: 17px;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 32px;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            min-height: 46px;
+            padding: 10px 18px;
+            border: 1px solid var(--ink);
+            border-radius: 3px;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+        }
+
+        .button:hover,
+        .button:focus-visible {
+            transform: translateY(-3px);
+            box-shadow: 5px 5px 0 var(--yellow);
+            outline: none;
+        }
+
+        .button-primary {
+            color: #fffdf8;
+            background: var(--ink);
+        }
+
+        .button-secondary {
+            background: rgba(255, 253, 248, 0.45);
+        }
+
+        .hero-visual {
+            position: relative;
+            min-height: 365px;
+        }
+
+        .hero-visual::before {
+            position: absolute;
+            top: 8px;
+            right: 6px;
+            width: 80%;
+            height: 82%;
+            border: 1px solid var(--ink);
+            content: "";
+            transform: rotate(5deg);
+        }
+
+        .image-frame {
+            position: absolute;
+            right: 34px;
+            bottom: 20px;
+            width: min(82%, 350px);
+            overflow: hidden;
+            background: var(--surface);
+            box-shadow: var(--shadow);
+            transform: rotate(-4deg);
+        }
+
+        .image-frame img {
+            display: block;
+            width: 100%;
+            height: 285px;
+            object-fit: cover;
+            filter: saturate(0.82) contrast(1.04);
+        }
+
+        .image-caption {
+            padding: 14px 16px 16px;
+            color: var(--muted);
+            font-family: Georgia, "Noto Serif SC", serif;
+            font-size: 14px;
+        }
+
+        .number-stamp {
+            position: absolute;
+            top: 14px;
+            left: 0;
+            display: grid;
+            width: 92px;
+            height: 92px;
+            place-items: center;
+            color: var(--ink);
+            background: var(--yellow);
+            border-radius: 50%;
+            font-family: Georgia, serif;
+            font-size: 30px;
+            font-weight: 700;
+            line-height: 1;
+            transform: rotate(-12deg);
+        }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .section-heading h2 {
+            margin-bottom: 0;
+            font-family: Georgia, "Noto Serif SC", serif;
+            font-size: 36px;
+            line-height: 1.2;
+        }
+
+        .section-heading p {
+            margin-bottom: 3px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            padding: 28px 0 110px;
+        }
+
+        .project-card {
+            position: relative;
+            display: flex;
+            min-height: 235px;
+            flex-direction: column;
+            padding: 25px;
+            border: 1px solid var(--line);
+            background: rgba(255, 253, 248, 0.72);
+            transition: transform 180ms ease, background 180ms ease, box-shadow 180ms ease;
+        }
+
+        .project-card:hover {
+            background: var(--surface);
+            box-shadow: var(--shadow);
+            transform: translateY(-6px);
+        }
+
+        .project-index {
+            color: var(--coral);
+            font-family: Georgia, serif;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .project-card h3 {
+            margin: 28px 0 10px;
+            font-size: 20px;
+        }
+
+        .project-card p {
+            flex: 1;
+            margin-bottom: 22px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .project-link {
+            display: inline-flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 13px;
+            border-top: 1px solid var(--line);
+            color: var(--coral-dark);
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .project-link span:last-child {
+            font-size: 20px;
+            line-height: 1;
+        }
+
+        .brief {
+            display: grid;
+            grid-template-columns: 0.7fr 1.3fr;
+            gap: 50px;
+            margin-bottom: 70px;
+            padding: 42px;
+            background: var(--ink);
+            color: #f9f3e8;
+        }
+
+        .brief h2 {
+            margin-bottom: 10px;
+            font-family: Georgia, "Noto Serif SC", serif;
+            font-size: 31px;
+            line-height: 1.2;
+        }
+
+        .brief-label {
+            color: var(--yellow);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+        }
+
+        .brief p {
+            margin-bottom: 0;
+            color: #c6d1c8;
+            font-size: 14px;
+        }
+
+        .prompt-text {
+            padding-left: 24px;
+            border-left: 2px solid var(--coral);
+            color: #fffdf8;
+            font-size: 15px;
+        }
+
+        footer {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 24px 0 34px;
+            border-top: 1px solid var(--line);
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        @media (max-width: 760px) {
+            .page-shell {
+                width: min(100% - 28px, 560px);
+            }
+
+            .topbar {
+                padding-top: 20px;
+            }
+
+            .topbar a {
+                display: none;
+            }
+
+            .hero {
+                display: block;
+                padding: 64px 0 70px;
+            }
+
+            h1 {
+                font-size: clamp(42px, 14vw, 70px);
+            }
+
+            .hero-visual {
+                min-height: 330px;
+                margin-top: 42px;
+            }
+
+            .image-frame {
+                right: 22px;
+                width: min(82%, 330px);
+            }
+
+            .section-heading {
+                display: block;
+            }
+
+            .section-heading p {
+                margin-top: 12px;
+            }
+
+            .project-grid,
+            .brief {
+                grid-template-columns: 1fr;
+            }
+
+            .project-grid {
+                padding-bottom: 70px;
+            }
+
+            .brief {
+                gap: 24px;
+                margin-bottom: 48px;
+                padding: 28px 22px;
+            }
+
+            footer {
+                display: block;
+            }
+
+            footer span:last-child {
+                display: block;
+                margin-top: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-shell">
+        <header class="topbar">
+            <div class="brand-mark"><span class="brand-dot"></span>课堂实践档案 / 403</div>
+            <a href="#works">浏览全部作品 ↓</a>
+        </header>
+
+        <main>
+            <section class="hero" aria-labelledby="page-title">
+                <div>
+                    <p class="eyebrow">ADVANCED WEB DESIGN · CLASS PRACTICE</p>
+                    <h1 id="page-title">张天润 <span>403</span><br>的网页练习集</h1>
+                    <p class="hero-copy">从 HTML 结构、超链接与图片，到表单交互和 CSS 选择器，这里是《高级网页设计》课堂实践的统一入口。</p>
+                    <div class="hero-actions">
+                        <a class="button button-primary" href="#works">查看练习目录 <span>↘</span></a>
+                        <a class="button button-secondary" href="#brief">阅读提示词</a>
+                    </div>
+                </div>
+
+                <div class="hero-visual" aria-label="课堂实践本地图片展示">
+                    <div class="number-stamp">403</div>
+                    <div class="image-frame">
+                        <img src="./img/2cc9882926fcbce73806e15bcf14a8ef.jpg" alt="课堂练习中的本地图片素材">
+                        <div class="image-caption">把标签写成结构，把样式变成表达。</div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="works" aria-labelledby="works-title">
+                <div class="section-heading">
+                    <h2 id="works-title">练习目录</h2>
+                    <p>12 个本地页面 · 点击卡片进入对应实践</p>
+                </div>
+
+                <div class="project-grid">
+                    <article class="project-card">
+                        <span class="project-index">01 / HTML</span>
+                        <h3>HTML 初识</h3>
+                        <p>从页面骨架开始，认识文档标题、字符集与最基础的页面内容。</p>
+                        <a class="project-link" href="./1.html"><span>打开 1.html</span><span>↗</span></a>
+                    </article>
+
+                    <article class="project-card">
+                        <span class="project-index">02 / ELEMENTS</span>
+                        <h3>HTML 元素</h3>
+                        <p>练习标题、段落、列表、块级元素与行内元素，观察结构如何组织内容。</p>
+                        <a class="project-link" href="./2-1.html"><span>打开 2-1.html</span><span>↗</span></a>
+                    </article>
+
+                    <article class="project-card">
+                        <span class="project-index">03 / LINKS</span>
+                        <h3>超链接与图片</h3>
+                        <p>探索外部链接、本地相对路径、图片属性、图片超链接和数据表格。</p>
+                        <a class="project-link" href="./2-2.html"><span>打开 2-2.html</span><span>↗</span></a>
+                    </article>
+
+                    <article class="project-card">
+                        <span class="project-index">04 / FORM</span>
+                        <h3>表单实践</h3>
+                        <p>组合文本框、密码框、单选、多选、下拉菜单、日期和文件上传控件。</p>
+                        <a class="project-link" href="./3-1form.html"><span>打开 3-1form.html</span><span>↗</span></a>
+                    </article>
+
+                    <article class="project-card">
+                        <span class="project-index">05 / CSS</span>
+                        <h3>CSS 选择器</h3>
+                        <p>通过标签、ID 与类选择器，为页面添加颜色、尺寸、间距和层次。</p>
+                        <a class="project-link" href="./3-2%20css.html"><span>打开 3-2 css.html</span><span>↗</span></a>
+                    </article>
+
+                    <article class="project-card">
+                        <span class="project-index">06 / ADVANCED CSS</span>
+                        <h3>CSS 进阶</h3>
+                        <p>综合练习群组选择器、后代选择器、文字样式和信息强调效果。</p>
+                        <a class="project-link" href="./4-1%20css2.html"><span>打开 4-1 css2.html</span><span>↗</span></a>
+                    </article>
+
+                    <article class="project-card">
+                        <span class="project-index">07 / OVERLAP</span>
+                        <h3>重叠与继承</h3>
+                        <p>观察层叠顺序、定位关系和继承规则，强化样式层级认知。</p>
+                        <a class="project-link" href="./5-1%20重叠与继承.html"><span>打开 5-1 重叠与继承.html</span><span>↗</span></a>
+                    </article>
+
+                    <article class="project-card">
+                        <span class="project-index">08 / BOX MODEL</span>
+                        <h3>盒模型</h3>
+                        <p>深入理解内容区、内边距、边框和外边距在布局中的作用。</p>
+                        <a class="project-link" href="./5-2%20盒模型.html"><span>打开 5-2 盒模型.html</span><span>↗</span></a>
+                    </article>
+
+                    <article class="project-card">
+                        <span class="project-index">09 / FLEX</span>
+                        <h3>Flex 布局</h3>
+                        <p>使用弹性布局完成常见的横向纵向排列与分组结构设计。</p>
+                        <a class="project-link" href="./6-1%20flex.html"><span>打开 6-1 flex.html</span><span>↗</span></a>
+                    </article>
+
+                    <article class="project-card">
+                        <span class="project-index">10 / SPLIT</span>
+                        <h3>一左一右布局</h3>
+                        <p>练习左右双栏页面结构，强化内容区域与侧边栏的分配逻辑。</p>
+                        <a class="project-link" href="./6-2一左一右.html"><span>打开 6-2一左一右.html</span><span>↗</span></a>
+                    </article>
+
+                    <article class="project-card">
+                        <span class="project-index">11 / TOP IMAGE</span>
+                        <h3>上图下文布局</h3>
+                        <p>组合图片与文本层次，营造“主体信息在下、视觉锚点在上”的结构。</p>
+                        <a class="project-link" href="./7-1%20上图下文.html"><span>打开 7-1 上图下文.html</span><span>↗</span></a>
+                    </article>
+
+                    <article class="project-card">
+                        <span class="project-index">12 / SIDE BY SIDE</span>
+                        <h3>左图右文布局</h3>
+                        <p>利用左右横向排版实现文章图文融合，进一步实现信息内容平衡。</p>
+                        <a class="project-link" href="./7-2%20左图右文.html"><span>打开 7-2 左图右文.html</span><span>↗</span></a>
+                    </article>
+                </div>
+            </section>
+
+            <section id="brief" class="brief" aria-labelledby="brief-title">
+                <div>
+                    <span class="brief-label">PROJECT BRIEF</span>
+                    <h2 id="brief-title">本页创作说明</h2>
+                    <p>页面中的提示词原文，作为本次课堂实践的设计 brief 保留。</p>
+                </div>
+                <p class="prompt-text">“创建一个新页面，包括本目录下的所有网页的超链接，使用原生代码，不使用cdn，新页面名称为index.html，主题为张天润403的《高级网页设计》课堂实践，美化页面，页面中包括本提示词。”</p>
+            </section>
+        </main>
+
+        <footer>
+            <span>张天润 403 · 《高级网页设计》</span>
+            <span>本页面使用原生 HTML + CSS 构建</span>
+        </footer>
+    </div>
+</body>
+</html>
