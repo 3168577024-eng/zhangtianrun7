@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12-1 CSS 变量</title>
+    <style>
+        :root {
+            --zhang_primary: #d9684e;
+            --zhang_ink: #19302c;
+            --zhang_muted: #62716c;
+            --zhang_paper: #f6f1e8;
+            --zhang_surface: #fffdf8;
+            --zhang_line: #d9ded5;
+            --zhang_accent: #f1cc6b;
+            --zhang_radius: 12px;
+            --zhang_gap: 20px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: var(--zhang_paper);
+            color: var(--zhang_ink);
+            font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+            line-height: 1.7;
+        }
+
+        .zhang_container {
+            width: min(1000px, calc(100% - 40px));
+            margin: 0 auto;
+            padding: 60px 0 80px;
+        }
+
+        .zhang_header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .zhang_header h1 {
+            font-family: Georgia, "Noto Serif SC", serif;
+            font-size: clamp(34px, 5vw, 52px);
+            margin-bottom: 12px;
+        }
+
+        .zhang_header h1 span {
+            color: var(--zhang_primary);
+        }
+
+        .zhang_header p {
+            color: var(--zhang_muted);
+            font-size: 16px;
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        .zhang_card {
+            background: var(--zhang_surface);
+            border: 1px solid var(--zhang_line);
+            border-radius: var(--zhang_radius);
+            padding: 30px;
+            margin-bottom: var(--zhang_gap);
+            box-shadow: 0 8px 24px rgba(32, 52, 47, 0.06);
+        }
+
+        .zhang_card h2 {
+            font-size: 20px;
+            margin: 0 0 8px;
+        }
+
+        .zhang_card .zhang_desc {
+            color: var(--zhang_muted);
+            font-size: 14px;
+            margin: 0 0 20px;
+        }
+
+        .zhang_code {
+            background: var(--zhang_ink);
+            color: #dce9dc;
+            padding: 16px 20px;
+            border-radius: 8px;
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            overflow-x: auto;
+            margin: 0 0 16px;
+        }
+
+        .zhang_code .zhang_prop {
+            color: var(--zhang_accent);
+        }
+
+        .zhang_demo {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            padding: 20px;
+            background: var(--zhang_paper);
+            border-radius: 8px;
+        }
+
+        .zhang_swatch {
+            flex: 1 1 120px;
+            min-width: 120px;
+            padding: 18px 14px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 700;
+            color: #fffdf8;
+            transition: transform 200ms ease;
+        }
+
+        .zhang_swatch:hover {
+            transform: translateY(-4px);
+        }
+
+        .zhang_swatch-1 { background: var(--zhang_primary); }
+        .zhang_swatch-2 { background: var(--zhang_ink); }
+        .zhang_swatch-3 { background: var(--zhang_muted); }
+        .zhang_swatch-4 { background: #4e8d7b; color: #fffdf8; }
+
+        .zhang_btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 4px;
+        }
+
+        .zhang_btn {
+            padding: 10px 20px;
+            border: 1px solid var(--zhang_ink);
+            border-radius: var(--zhang_radius);
+            background: var(--zhang_surface);
+            color: var(--zhang_ink);
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 200ms ease;
+        }
+
+        .zhang_btn:hover {
+            background: var(--zhang_ink);
+            color: var(--zhang_paper);
+            transform: translateY(-2px);
+        }
+
+        .zhang_btn-primary {
+            background: var(--zhang_primary);
+            border-color: var(--zhang_primary);
+            color: #fffdf8;
+        }
+
+        .zhang_btn-primary:hover {
+            background: #b84e37;
+            border-color: #b84e37;
+        }
+
+        .zhang_interactive {
+            --zhang_local: #4e8d7b;
+        }
+
+        .zhang_interactive .zhang_card {
+            border-radius: calc(var(--zhang_radius) * 2);
+        }
+
+        .zhang_grid-demo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 14px;
+            margin-top: 16px;
+        }
+
+        .zhang_grid-item {
+            padding: 24px 16px;
+            border-radius: var(--zhang_radius);
+            text-align: center;
+            font-size: 14px;
+            font-weight: 700;
+            background: var(--zhang_surface);
+            border: 1px solid var(--zhang_line);
+            border-left: 4px solid var(--zhang_primary);
+            transition: all 200ms ease;
+        }
+
+        .zhang_grid-item:hover {
+            border-left-color: var(--zhang_accent);
+            box-shadow: var(--zhang-accent);
+            transform: translateY(-3px);
+        }
+
+        .zhang_back {
+            display: inline-block;
+            margin-top: 30px;
+            color: var(--zhang_primary);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .zhang_back:hover {
+            text-decoration: underline;
+        }
+
+        body.zhang_dark {
+            --zhang_paper: #1a2521;
+            --zhang_surface: #233530;
+            --zhang_ink: #e8f0ea;
+            --zhang_muted: #9db3a8;
+            --zhang_line: #3a4f47;
+        }
+
+        body.zhang_dark .zhang_code {
+            background: #0f1a16;
+        }
+
+        body.zhang_warm {
+            --zhang_primary: #b84e37;
+            --zhang_accent: #e8a83e;
+        }
+    </style>
+</head>
+<body>
+    <div class="zhang_container">
+        <header class="zhang_header">
+            <h1>CSS <span>变量</span>演示</h1>
+            <p>使用 CSS 自定义属性（Custom Properties）管理颜色、尺寸等主题值</p>
+        </header>
+
+        <section class="zhang_card">
+            <h2>1. 定义变量</h2>
+            <p class="zhang_desc">在 :root 中声明全局变量，供整个页面引用</p>
+            <div class="zhang_code">
+:root {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="zhang_prop">--zhang_primary</span>: #d9684e;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="zhang_prop">--zhang_ink</span>: #19302c;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="zhang_prop">--zhang_radius</span>: 12px;<br>
+}
+            </div>
+        </section>
+
+        <section class="zhang_card">
+            <h2>2. 使用变量</h2>
+            <p class="zhang_desc">通过 var() 函数引用变量值</p>
+            <div class="zhang_code">
+.zhang_btn {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="zhang_prop">color</span>: var(--zhang_ink);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="zhang_prop">border-radius</span>: var(--zhang_radius);<br>
+}
+            </div>
+            <div class="zhang_demo">
+                <div class="zhang_swatch zhang_swatch-1">--zhang_primary</div>
+                <div class="zhang_swatch zhang_swatch-2">--zhang_ink</div>
+                <div class="zhang_swatch zhang_swatch-3">--zhang_muted</div>
+                <div class="zhang_swatch zhang_swatch-4">--zhang_local</div>
+            </div>
+        </section>
+
+        <section class="zhang_card">
+            <h2>3. 变量修改变更</h2>
+            <p class="zhang_desc">局部作用域覆盖全局变量，实现主题切换</p>
+            <div class="zhang_code">
+.zhang_interactive {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="zhang_prop">--zhang_local</span>: #4e8d7b;<br>
+}<br>
+body.zhang_dark {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="zhang_prop">--zhang_paper</span>: #1a2521;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="zhang_prop">--zhang_ink</span>: #e8f0ea;<br>
+}
+            </div>
+            <div class="zhang_btn-group">
+                <button class="zhang_btn" onclick="zhang_setTheme('')">默认主题</button>
+                <button class="zhang_btn" onclick="zhang_setTheme('zhang_dark')">深色主题</button>
+                <button class="zhang-btn zhang-btn-primary" onclick="zhang_setTheme('zhang_warm')">暖色主题</button>
+            </div>
+        </section>
+
+        <section class="zhang_card zhang_interactive">
+            <h2>4. 局部覆盖</h2>
+            <p class="zhang_desc">此卡片内 --zhang_local 覆盖了全局同名变量</p>
+            <div class="zhang_grid-demo">
+                <div class="zhang_grid-item">Grid Item 1</div>
+                <div class="zhang_grid-item">Grid Item 2</div>
+                <div class="zhang_grid-item">Grid Item 3</div>
+            </div>
+        </section>
+
+        <a class="zhang_back" href="./index.html">← 返回首页</a>
+    </div>
+
+    <script>
+        function zhang_setTheme(zhang_theme) {
+            document.body.classList.remove("zhang_dark", "zhang_warm");
+            if (zhang_theme) {
+                document.body.classList.add(zhang_theme);
+            }
+        }
+    </script>
+</body>
+</html>
