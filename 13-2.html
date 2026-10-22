@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucide SVG 图标</title>
+    <script src="cdn/lucide.min.js"></script>
+    <style>
+        .zhang_page {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f0f2f5;
+            min-height: 100vh;
+        }
+        .zhang_header {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .zhang_header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .zhang_header p {
+            margin: 10px 0 0;
+            opacity: 0.9;
+        }
+        .zhang_section {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        .zhang_section h2 {
+            color: #333;
+            border-bottom: 3px solid #11998e;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .zhang_icon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+        }
+        .zhang_icon-card {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .zhang_icon-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            background: #e9ecef;
+        }
+        .zhang_icon-card svg {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 10px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .zhang_icon-card span {
+            color: #666;
+            font-size: 0.9em;
+            word-break: break-all;
+        }
+        .zhang_interface i { color: #2c3e50; }
+        .zhang_communication i { color: #3498db; }
+        .zhang_media i { color: #e74c3c; }
+        .zhang_weather i { color: #f39c12; }
+        .zhang_back-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: #11998e;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+        .zhang_back-link:hover {
+            background: #0d8076;
+        }
+        .zhang_size-demo {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .zhang_size-demo svg {
+            color: #11998e;
+        }
+        .zhang_color-demo {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="zhang_page">
+        <div class="zhang_header">
+            <h1><i data-lucide="shapes"></i> Lucide SVG 图标</h1>
+            <p>基于 SVG 的图标系统，轻量级、可定制、支持动画</p>
+        </div>
+
+        <div class="zhang_section">
+            <h2><i data-lucide="layout"></i> 界面图标 Interface</h2>
+            <div class="zhang_icon-grid zhang_interface">
+                <div class="zhang_icon-card"><i data-lucide="home"></i><span>home</span></div>
+                <div class="zhang_icon-card"><i data-lucide="search"></i><span>search</span></div>
+                <div class="zhang_icon-card"><i data-lucide="settings"></i><span>settings</span></div>
+                <div class="zhang_icon-card"><i data-lucide="user"></i><span>user</span></div>
+                <div class="zhang_icon-card"><i data-lucide="menu"></i><span>menu</span></div>
+                <div class="zhang_icon-card"><i data-lucide="x"></i><span>x</span></div>
+                <div class="zhang_icon-card"><i data-lucide="check"></i><span>check</span></div>
+                <div class="zhang_icon-card"><i data-lucide="plus"></i><span>plus</span></div>
+                <div class="zhang_icon-card"><i data-lucide="edit"></i><span>edit</span></div>
+                <div class="zhang_icon-card"><i data-lucide="trash-2"></i><span>trash-2</span></div>
+                <div class="zhang_icon-card"><i data-lucide="save"></i><span>save</span></div>
+                <div class="zhang_icon-card"><i data-lucide="download"></i><span>download</span></div>
+            </div>
+        </div>
+
+        <div class="zhang_section">
+            <h2><i data-lucide="message-circle"></i> 通讯图标 Communication</h2>
+            <div class="zhang_icon-grid zhang_communication">
+                <div class="zhang_icon-card"><i data-lucide="mail"></i><span>mail</span></div>
+                <div class="zhang_icon-card"><i data-lucide="send"></i><span>send</span></div>
+                <div class="zhang_icon-card"><i data-lucide="message-square"></i><span>message-square</span></div>
+                <div class="zhang_icon-card"><i data-lucide="message-circle"></i><span>message-circle</span></div>
+                <div class="zhang_icon-card"><i data-lucide="bell"></i><span>bell</span></div>
+                <div class="zhang_icon-card"><i data-lucide="phone"></i><span>phone</span></div>
+                <div class="zhang_icon-card"><i data-lucide="video"></i><span>video</span></div>
+                <div class="zhang_icon-card"><i data-lucide="camera"></i><span>camera</span></div>
+                <div class="zhang_icon-card"><i data-lucide="image"></i><span>image</span></div>
+                <div class="zhang_icon-card"><i data-lucide="paperclip"></i><span>paperclip</span></div>
+                <div class="zhang_icon-card"><i data-lucide="at-sign"></i><span>at-sign</span></div>
+                <div class="zhang_icon-card"><i data-lucide="hash"></i><span>hash</span></div>
+            </div>
+        </div>
+
+        <div class="zhang_section">
+            <h2><i data-lucide="music"></i> 媒体图标 Media</h2>
+            <div class="zhang_icon-grid zhang_media">
+                <div class="zhang_icon-card"><i data-lucide="play"></i><span>play</span></div>
+                <div class="zhang_icon-card"><i data-lucide="pause"></i><span>pause</span></div>
+                <div class="zhang_icon-card"><i data-lucide="square"></i><span>square</span></div>
+                <div class="zhang_icon-card"><i data-lucide="skip-forward"></i><span>skip-forward</span></div>
+                <div class="zhang_icon-card"><i data-lucide="skip-back"></i><span>skip-back</span></div>
+                <div class="zhang_icon-card"><i data-lucide="volume-2"></i><span>volume-2</span></div>
+                <div class="zhang_icon-card"><i data-lucide="music"></i><span>music</span></div>
+                <div class="zhang_icon-card"><i data-lucide="headphones"></i><span>headphones</span></div>
+                <div class="zhang_icon-card"><i data-lucide="mic"></i><span>mic</span></div>
+                <div class="zhang_icon-card"><i data-lucide="radio"></i><span>radio</span></div>
+                <div class="zhang_icon-card"><i data-lucide="film"></i><span>film</span></div>
+                <div class="zhang_icon-card"><i data-lucide="aperture"></i><span>aperture</span></div>
+            </div>
+        </div>
+
+        <div class="zhang_section">
+            <h2><i data-lucide="cloud"></i> 天气图标 Weather</h2>
+            <div class="zhang_icon-grid zhang_weather">
+                <div class="zhang_icon-card"><i data-lucide="sun"></i><span>sun</span></div>
+                <div class="zhang_icon-card"><i data-lucide="moon"></i><span>moon</span></div>
+                <div class="zhang_icon-card"><i data-lucide="cloud"></i><span>cloud</span></div>
+                <div class="zhang_icon-card"><i data-lucide="cloud-rain"></i><span>cloud-rain</span></div>
+                <div class="zhang_icon-card"><i data-lucide="cloud-snow"></i><span>cloud-snow</span></div>
+                <div class="zhang_icon-card"><i data-lucide="cloud-lightning"></i><span>cloud-lightning</span></div>
+                <div class="zhang_icon-card"><i data-lucide="wind"></i><span>wind</span></div>
+                <div class="zhang_icon-card"><i data-lucide="thermometer"></i><span>thermometer</span></div>
+                <div class="zhang_icon-card"><i data-lucide="droplets"></i><span>droplets</span></div>
+                <div class="zhang_icon-card"><i data-lucide="umbrella"></i><span>umbrella</span></div>
+                <div class="zhang_icon-card"><i data-lucide="snowflake"></i><span>snowflake</span></div>
+                <div class="zhang_icon-card"><i data-lucide="sunrise"></i><span>sunrise</span></div>
+            </div>
+        </div>
+
+        <div class="zhang_section">
+            <h2><i data-lucide="maximize"></i> 尺寸缩放演示</h2>
+            <div class="zhang_size-demo" id="zhang_size_demo"></div>
+        </div>
+
+        <div class="zhang_section">
+            <h2><i data-lucide="palette"></i> 颜色自定义演示</h2>
+            <div class="zhang_color-demo" id="zhang_color_demo"></div>
+        </div>
+
+        <a href="index.html" class="zhang_back-link"><i data-lucide="arrow-left"></i> 返回首页</a>
+    </div>
+
+    <script>
+        var zhang_lucide = lucide;
+
+        var zhang_sizes = [16, 24, 32, 48, 64, 96];
+        var zhang_sizeContainer = document.getElementById('zhang_size_demo');
+        zhang_sizes.forEach(function(size) {
+            var zhang_wrapper = document.createElement('div');
+            zhang_wrapper.style.textAlign = 'center';
+            zhang_wrapper.style.display = 'inline-block';
+            var zhang_icon = document.createElement('i');
+            zhang_icon.setAttribute('data-lucide', 'star');
+            zhang_icon.style.width = size + 'px';
+            zhang_icon.style.height = size + 'px';
+            zhang_wrapper.appendChild(zhang_icon);
+            var zhang_label = document.createElement('div');
+            zhang_label.style.fontSize = '12px';
+            zhang_label.style.color = '#666';
+            zhang_label.style.marginTop = '5px';
+            zhang_label.textContent = size + 'px';
+            zhang_wrapper.appendChild(zhang_label);
+            zhang_sizeContainer.appendChild(zhang_wrapper);
+        });
+        zhang_lucide.createIcons();
+
+        var zhang_colors = ['#e74c3c', '#3498db', '#2ecc71', '#f39c12', '#9b59b6', '#1abc9c'];
+        var zhang_colorContainer = document.getElementById('zhang_color_demo');
+        zhang_colors.forEach(function(color) {
+            var zhang_wrapper = document.createElement('div');
+            zhang_wrapper.style.textAlign = 'center';
+            zhang_wrapper.style.display = 'inline-block';
+            var zhang_icon = document.createElement('i');
+            zhang_icon.setAttribute('data-lucide', 'heart');
+            zhang_icon.style.width = '40px';
+            zhang_icon.style.height = '40px';
+            zhang_icon.style.color = color;
+            zhang_wrapper.appendChild(zhang_icon);
+            var zhang_label = document.createElement('div');
+            zhang_label.style.fontSize = '12px';
+            zhang_label.style.color = '#666';
+            zhang_label.style.marginTop = '5px';
+            zhang_label.textContent = color;
+            zhang_wrapper.appendChild(zhang_label);
+            zhang_colorContainer.appendChild(zhang_wrapper);
+        });
+        zhang_lucide.createIcons();
+    </script>
+</body>
+</html>

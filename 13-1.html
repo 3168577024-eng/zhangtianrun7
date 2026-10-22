@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Font Awesome 字体图标</title>
+    <link rel="stylesheet" href="cdn/all.min.css?ver=1">
+    <style>
+        .zhang_page {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+            min-height: 100vh;
+        }
+        .zhang_header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .zhang_header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .zhang_header p {
+            margin: 10px 0 0;
+            opacity: 0.9;
+        }
+        .zhang_section {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        .zhang_section h2 {
+            color: #333;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .zhang_icon_grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+        }
+        .zhang_icon-card {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .zhang_icon-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            background: #e9ecef;
+        }
+        .zhang_icon-card i {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .zhang_icon-card span {
+            color: #666;
+            font-size: 0.9em;
+            word-break: break-all;
+        }
+        .zhang_solid i { color: #2c3e50; }
+        .zhang_regular i { color: #3498db; }
+        .zhang_brands i { color: #e74c3c; }
+        .zhang_back-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+        .zhang_back-link:hover {
+            background: #5a6fd6;
+        }
+        .zhang_size-demo {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .zhang_size-demo i {
+            color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="zhang_page">
+        <div class="zhang_header">
+            <h1><i class="fas fa-icons"></i> Font Awesome 字体图标</h1>
+            <p>基于字体文件的图标系统，通过 CSS 类名调用，支持无限缩放</p>
+        </div>
+
+        <div class="zhang_section">
+            <h2><i class="fas fa-circle"></i> Solid 实心图标</h2>
+            <div class="zhang_icon-grid zhang_solid">
+                <div class="zhang_icon-card"><i class="fas fa-heart"></i><span>fa-heart</span></div>
+                <div class="zhang_icon-card"><i class="fas fa-star"></i><span>fa-star</span></div>
+                <div class="zhang_icon-card"><i class="fas fa-user"></i><span>fa-user</span></div>
+                <div class="zhang_icon-card"><i class="fas fa-home"></i><span>fa-home</span></div>
+                <div class="zhang_icon-card"><i class="fas fa-cog"></i><span>fa-cog</span></div>
+                <div class="zhang_icon-card"><i class="fas fa-search"></i><span>fa-search</span></div>
+                <div class="zhang_icon-card"><i class="fas fa-envelope"></i><span>fa-envelope</span></div>
+                <div class="zhang_icon-card"><i class="fas fa-camera"></i><span>fa-camera</span></div>
+                <div class="zhang_icon-card"><i class="fas fa-music"></i><span>fa-music</span></div>
+                <div class="zhang_icon-card"><i class="fas fa-car"></i><span>fa-car</span></div>
+                <div class="zhang_icon-card"><i class="fas fa-plane"></i><span>fa-plane</span></div>
+                <div class="zhang_icon-card"><i class="fas fa-gift"></i><span>fa-gift</span></div>
+            </div>
+        </div>
+
+        <div class="zhang_section">
+            <h2><i class="far fa-circle"></i> Regular 常规图标</h2>
+            <div class="zhang_icon-grid zhang_regular">
+                <div class="zhang_icon-card"><i class="far fa-heart"></i><span>fa-heart</span></div>
+                <div class="zhang_icon-card"><i class="far fa-star"></i><span>fa-star</span></div>
+                <div class="zhang_icon-card"><i class="far fa-user"></i><span>fa-user</span></div>
+                <div class="zhang_icon-card"><i class="far fa-bell"></i><span>fa-bell</span></div>
+                <div class="zhang_icon-card"><i class="far fa-envelope"></i><span>fa-envelope</span></div>
+                <div class="zhang_icon-card"><i class="far fa-folder"></i><span>fa-folder</span></div>
+                <div class="zhang_icon-card"><i class="far fa-file"></i><span>fa-file</span></div>
+                <div class="zhang_icon-card"><i class="far fa-image"></i><span>fa-image</span></div>
+                <div class="zhang_icon-card"><i class="far fa-comment"></i><span>fa-comment</span></div>
+                <div class="zhang_icon-card"><i class="far fa-calendar"></i><span>fa-calendar</span></div>
+                <div class="zhang_icon-card"><i class="far fa-clock"></i><span>fa-clock</span></div>
+                <div class="zhang_icon-card"><i class="far fa-flag"></i><span>fa-flag</span></div>
+            </div>
+        </div>
+
+        <div class="zhang_section">
+            <h2><i class="fab fa-github"></i> Brands 品牌图标</h2>
+            <div class="zhang_icon-grid zhang_brands">
+                <div class="zhang_icon-card"><i class="fab fa-github"></i><span>GitHub</span></div>
+                <div class="zhang_icon-card"><i class="fab fa-weixin"></i><span>微信</span></div>
+                <div class="zhang_icon-card"><i class="fab fa-weibo"></i><span>微博</span></div>
+                <div class="zhang_icon-card"><i class="fab fa-qq"></i><span>QQ</span></div>
+                <div class="zhang_icon-card"><i class="fab fa-android"></i><span>Android</span></div>
+                <div class="zhang_icon-card"><i class="fab fa-apple"></i><span>Apple</span></div>
+                <div class="zhang_icon-card"><i class="fab fa-windows"></i><span>Windows</span></div>
+                <div class="zhang_icon-card"><i class="fab fa-google"></i><span>Google</span></div>
+                <div class="zhang_icon-card"><i class="fab fa-facebook"></i><span>Facebook</span></div>
+                <div class="zhang_icon-card"><i class="fab fa-twitter"></i><span>Twitter</span></div>
+                <div class="zhang_icon-card"><i class="fab fa-youtube"></i><span>YouTube</span></div>
+                <div class="zhang_icon-card"><i class="fab fa-chrome"></i><span>Chrome</span></div>
+            </div>
+        </div>
+
+        <div class="zhang_section">
+            <h2><i class="fas fa-text-height"></i> 尺寸缩放演示</h2>
+            <div class="zhang_size-demo">
+                <i class="fas fa-star" style="font-size: 1em;"></i>
+                <i class="fas fa-star" style="font-size: 1.5em;"></i>
+                <i class="fas fa-star" style="font-size: 2em;"></i>
+                <i class="fas fa-star" style="font-size: 3em;"></i>
+                <i class="fas fa-star" style="font-size: 4em;"></i>
+                <i class="fas fa-star" style="font-size: 5em;"></i>
+            </div>
+        </div>
+
+        <a href="index.html" class="zhang_back-link"><i class="fas fa-arrow-left"></i> 返回首页</a>
+    </div>
+</body>
+</html>
