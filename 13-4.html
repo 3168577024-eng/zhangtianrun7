@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- 姓名：张天润，日期：功能名称 -->
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -11,13 +12,13 @@
             padding: 0;
             box-sizing: border-box;
         }
-        .zhang_page {
+        .ztr_page {
             width: 100%;
             min-height: 100vh;
             background: #f5f5f5;
             padding-bottom: 60px;
         }
-        .zhang_header {
+        .ztr_header {
             width: 100%;
             height: 50vh;
             background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
@@ -27,16 +28,16 @@
             color: white;
             font-size: 24px;
         }
-        .zhang_content {
+        .ztr_content {
             width: 100%;
             padding: 20px;
         }
-        .zhang_content p {
+        .ztr_content p {
             color: #666;
             text-align: center;
             line-height: 1.8;
         }
-        .zhang_nav {
+        .ztr_nav {
             position: fixed;
             bottom: 0;
             left: 0;
@@ -47,7 +48,7 @@
             box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
             z-index: 1000;
         }
-        .zhang_nav-item {
+        .ztr_nav-item {
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -58,18 +59,18 @@
             color: #999;
             transition: color 0.3s;
         }
-        .zhang_nav-item:active {
+        .ztr_nav-item:active {
             color: #11998e;
         }
-        .zhang_nav-item svg {
+        .ztr_nav-item svg {
             width: 22px;
             height: 22px;
         }
-        .zhang_nav-item span {
+        .ztr_nav-item span {
             font-size: 11px;
             margin-top: 4px;
         }
-        .zhang_badge {
+        .ztr_badge {
             position: absolute;
             top: 4px;
             right: calc(50% - 22px);
@@ -84,7 +85,7 @@
             justify-content: center;
             padding: 0 4px;
         }
-        .zhang_dot {
+        .ztr_dot {
             position: absolute;
             top: 6px;
             right: calc(50% - 18px);
@@ -96,34 +97,34 @@
     </style>
 </head>
 <body>
-    <div class="zhang_page">
-        <div class="zhang_header">
+    <div class="ztr_page">
+        <div class="ztr_header">
             <h1>Iconfont SVG 图标</h1>
         </div>
-        <div class="zhang_content">
+        <div class="ztr_content">
             <p>这是一个移动端自适应页面</p>
             <p>底部导航使用 iconfont SVG 图标</p>
             <p>包含数字徽章和红点提示</p>
             <p>向下滚动查看固定导航效果</p>
         </div>
-        <nav class="zhang_nav">
-            <a href="#" class="zhang_nav-item">
-                <svg class="zhang_svg-icon"><use xlink:href="#icon-fuwuzhongxin"></use></svg>
+        <nav class="ztr_nav">
+            <a href="#" class="ztr_nav-item">
+                <svg class="ztr_svg-icon"><use xlink:href="#icon-fuwuzhongxin"></use></svg>
                 <span>服务中心</span>
-                <span class="zhang_badge">8</span>
+                <span class="ztr_badge">8</span>
             </a>
-            <a href="#" class="zhang_nav-item">
-                <svg class="zhang_svg-icon"><use xlink:href="#icon-gonglvezhinan"></use></svg>
+            <a href="#" class="ztr_nav-item">
+                <svg class="ztr_svg-icon"><use xlink:href="#icon-gonglvezhinan"></use></svg>
                 <span>攻略指南</span>
-                <span class="zhang_dot"></span>
+                <span class="ztr_dot"></span>
             </a>
-            <a href="#" class="zhang_nav-item">
-                <svg class="zhang_svg-icon"><use xlink:href="#icon-huodongyouli"></use></svg>
+            <a href="#" class="ztr_nav-item">
+                <svg class="ztr_svg-icon"><use xlink:href="#icon-huodongyouli"></use></svg>
                 <span>活动有礼</span>
-                <span class="zhang_badge">3</span>
+                <span class="ztr_badge">3</span>
             </a>
-            <a href="#" class="zhang_nav-item">
-                <svg class="zhang_svg-icon"><use xlink:href="#icon-gerenshezhi"></use></svg>
+            <a href="#" class="ztr_nav-item">
+                <svg class="ztr_svg-icon"><use xlink:href="#icon-gerenshezhi"></use></svg>
                 <span>个人设置</span>
             </a>
         </nav>

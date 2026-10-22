@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<!-- 姓名：张天润，日期：功能名称 -->
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript 六种基础数据类型</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 30px 16px;
+            background: #f4f6f8;
+            font-family: "Microsoft YaHei", sans-serif;
+            color: #22303c;
+            line-height: 1.7;
+        }
+
+        .ztr_box {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 26px 30px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 6px 18px rgba(34, 48, 60, 0.08);
+        }
+
+        .ztr_title {
+            margin: 0 0 6px;
+            font-size: 26px;
+        }
+
+        .ztr_desc {
+            margin: 0 0 20px;
+            color: #66788a;
+            font-size: 14px;
+        }
+
+        .ztr_table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .ztr_table th,
+        .ztr_table td {
+            padding: 10px 12px;
+            border: 1px solid #dde5ec;
+            text-align: left;
+        }
+
+        .ztr_table th {
+            background: #eef3f7;
+        }
+
+        .ztr_table tr:nth-child(even) {
+            background: #fafcfd;
+        }
+
+        .ztr_tag {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 12px;
+            font-family: Consolas, monospace;
+        }
+
+        .ztr_btn {
+            margin: 20px 8px 0 0;
+            padding: 8px 18px;
+            border: none;
+            border-radius: 4px;
+            background: #2f6fed;
+            color: #fff;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .ztr_btn:hover {
+            background: #2459c4;
+        }
+
+        .ztr_output {
+            margin-top: 16px;
+            padding: 14px 16px;
+            background: #1e2530;
+            color: #9fe3a1;
+            border-radius: 6px;
+            font-family: Consolas, monospace;
+            font-size: 13px;
+            white-space: pre-wrap;
+            min-height: 60px;
+        }
+    </style>
+</head>
+<body>
+    <div class="ztr_box">
+        <h2 class="ztr_title">张天润：JavaScript 六种基础数据类型</h2>
+        <p class="ztr_desc">使用 typeof 检测每种类型的变量，点击按钮可在控制台（F12）查看输出，页面下方同步显示运行结果。</p>
+
+        <table class="ztr_table" id="ztr_type-table">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>数据类型</th>
+                    <th>示例变量</th>
+                    <th>示例值</th>
+                    <th>typeof 结果</th>
+                    <th>说明</th>
+                </tr>
+            </thead>
+            <tbody id="ztr_type-body"></tbody>
+        </table>
+
+        <button class="ztr_btn" onclick="ztr_runDemo()">运行类型演示</button>
+        <div class="ztr_output" id="ztr_output">等待运行……</div>
+    </div>
+
+    <script>
+        // ====== 一、定义 JavaScript 的六种基础数据类型 ======
+        // 1. String 字符串类型
+        var ztr_str = "张天润,403";
+        // 2. Number 数值类型
+        var ztr_num = 403;
+        // 3. Boolean 布尔类型
+        var ztr_bool = true;
+        // 4. Undefined 未定义类型（变量声明后未赋值）
+        var ztr_undef;
+        // 5. Null 空值类型（表示"空对象指针"）
+        var ztr_null = null;
+        // 6. Object 对象类型（键值对集合）
+        var ztr_obj = { name: "张天润", class: "403", score: 98 };
+
+        // ====== 二、类型清单数据 ======
+        var ztr_types = [
+            { name: "String", varName: "ztr_str", value: ztr_str, desc: "字符串，用单引号或双引号包裹" },
+            { name: "Number", varName: "ztr_num", value: ztr_num, desc: "数值，整数和小数统一为数值型" },
+            { name: "Boolean", varName: "ztr_bool", value: ztr_bool, desc: "布尔值，只有 true 和 false" },
+            { name: "Undefined", varName: "ztr_undef", value: ztr_undef, desc: "变量已声明但未赋值" },
+            { name: "Null", varName: "ztr_null", value: ztr_null, desc: "空值；typeof 检测返回 object 是历史遗留" },
+            { name: "Object", varName: "ztr_obj", value: ztr_obj, desc: "对象，由键值对组成的复合类型" }
+        ];
+
+        var ztr_colors = {
+            String: "#2f9e44",
+            Number: "#2f6fed",
+            Boolean: "#e8590c",
+            Undefined: "#868e96",
+            Null: "#868e96",
+            Object: "#9c36b5"
+        };
+
+        // ====== 三、演示：生成表格 + 控制台输出 ======
+        function ztr_renderTable() {
+            var ztr_body = document.getElementById("ztr_type-body");
+            var ztr_rows = "";
+            for (var i = 0; i < ztr_types.length; i++) {
+                var ztr_t = ztr_types[i];
+                ztr_rows += "<tr>"
+                    + "<td>" + (i + 1) + "</td>"
+                    + "<td><span class='ztr_tag' style='background:" + ztr_colors[ztr_t.name] + "'>" + ztr_t.name + "</span></td>"
+                    + "<td>" + ztr_t.varName + "</td>"
+                    + "<td>" + String(ztr_t.value) + "</td>"
+                    + "<td>" + typeof ztr_t.value + "</td>"
+                    + "<td>" + ztr_t.desc + "</td>"
+                    + "</tr>";
+            }
+            ztr_body.innerHTML = ztr_rows;
+        }
+
+        function ztr_runDemo() {
+            var ztr_lines = "";
+            for (var i = 0; i < ztr_types.length; i++) {
+                var ztr_t = ztr_types[i];
+                var ztr_msg = "typeof " + ztr_t.name + " 变量 → " + typeof ztr_t.value + "，值 = " + String(ztr_t.value);
+                // 三种输出方式演示
+                console.log(ztr_msg);
+                ztr_lines += ztr_msg + "\n";
+            }
+            document.getElementById("ztr_output").textContent = ztr_lines;
+        }
+
+        // 页面加载即生成表格
+        ztr_renderTable();
+    </script>
+</body>
+</html>

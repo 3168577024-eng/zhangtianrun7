@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- 姓名：张天润，日期：功能名称 -->
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -18,18 +19,18 @@
             font-family: Arial, sans-serif;
         }
 
-        .slideshow {
+        .ztr_slideshow {
             width: min(900px, 90vw);
             text-align: center;
         }
 
-        .slideshow h1 {
+        .ztr_slideshow h1 {
             margin: 0 0 20px;
             color: #263238;
             font-size: clamp(1.5rem, 4vw, 2.4rem);
         }
 
-        .carousel {
+        .ztr_carousel {
             position: relative;
             overflow: hidden;
             width: 100%;
@@ -39,7 +40,7 @@
             background: #d5dbe2;
         }
 
-        .slide {
+        .ztr_slide {
             position: absolute;
             inset: 0;
             visibility: hidden;
@@ -48,26 +49,26 @@
             will-change: transform, visibility;
         }
 
-        .slide img {
+        .ztr_slide img {
             width: 100%;
             height: 100%;
             display: block;
             object-fit: cover;
         }
 
-        .slide:nth-child(1) {
+        .ztr_slide:nth-child(1) {
             animation-delay: 0s;
         }
 
-        .slide:nth-child(2) {
+        .ztr_slide:nth-child(2) {
             animation-delay: 3s;
         }
 
-        .slide:nth-child(3) {
+        .ztr_slide:nth-child(3) {
             animation-delay: 6s;
         }
 
-        .caption {
+        .ztr_caption {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -101,19 +102,19 @@
     </style>
 </head>
 <body>
-    <main class="slideshow">
+    <main class="ztr_slideshow">
         <h1>张天润</h1>
-        <section class="carousel" aria-label="张天润的图片幻灯片">
-            <figure class="slide">
+        <section class="ztr_carousel" aria-label="张天润的图片幻灯片">
+            <figure class="ztr_slide">
                 <img src="img/2cc9882926fcbce73806e15bcf14a8ef.jpg" alt="幻灯片图片一">
             </figure>
-            <figure class="slide">
+            <figure class="ztr_slide">
                 <img src="img/6311d91963929c2e1578620659212d57.jpg" alt="幻灯片图片二">
             </figure>
-            <figure class="slide">
+            <figure class="ztr_slide">
                 <img src="img/685f0a52b56d40ed8fed72c50a6bc473.jpg" alt="幻灯片图片三">
             </figure>
-            <div class="caption">张天润</div>
+            <div class="ztr_caption">张天润</div>
         </section>
     </main>
 </body>

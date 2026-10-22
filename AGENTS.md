@@ -1,9 +1,18 @@
 # 项目规则
 
 ## 命名规范
-- 所有 CSS 类名以 `zhang_` 开始
-- 所有 id 名以 `zhang_` 开始
-- 所有 JS 变量以 `zhang_` 开始
+- 所有 CSS 类名以 `ztr_` 开始
+- 所有 id 名以 `ztr_` 开始
+- 所有 JS 变量以 `ztr_` 开始
+
+## HTML 注释规范
+- 所有 HTML 页面中必须包括以下注释：
+  - `姓名：张天润，日期：功能名称`
+
+## 技术规范
+- 项目使用原生的 HTML、CSS 和 JavaScript 实现，不使用第三方库和 CDN
+- 图标使用 `font` 目录下的 iconfont 图标
+- 使用 fetch 获取服务器端数据
 
 ## 页面关联
 - 新建的 HTML 文件必须加入超链接到首页 `index.html`

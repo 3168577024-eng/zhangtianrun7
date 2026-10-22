@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- 姓名：张天润，日期：功能名称 -->
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -22,7 +23,7 @@
             font-family: Arial, sans-serif;
         }
 
-        .page {
+        .ztr_page {
             width: 100%;
             max-width: 1200px;
             margin: 0 auto;
@@ -35,19 +36,19 @@
             transition: font-size 0.3s ease;
         }
 
-        .intro {
+        .ztr_intro {
             margin: 0 0 2rem;
             text-align: center;
             color: #64748b;
         }
 
-        .box-grid {
+        .ztr_box-grid {
             display: grid;
             grid-template-columns: repeat(1, minmax(0, 1fr));
             gap: 1rem;
         }
 
-        .box {
+        .ztr_box {
             min-height: 180px;
             padding: 1.25rem;
             border: 1px solid #dbe3ef;
@@ -58,19 +59,19 @@
             transition: transform 0.25s ease, box-shadow 0.25s ease;
         }
 
-        .box:hover {
+        .ztr_box:hover {
             transform: translateY(-4px);
             box-shadow: 0 14px 30px rgba(30, 41, 59, 0.14);
         }
 
-        .box strong {
+        .ztr_box strong {
             display: block;
             margin-bottom: 0.75rem;
             color: #2563eb;
             font-size: 1.25rem;
         }
 
-        .box p {
+        .ztr_box p {
             margin: 0;
             line-height: 1.6;
         }
@@ -80,7 +81,7 @@
                 font-size: 2.5rem;
             }
 
-            .box-grid {
+            .ztr_box-grid {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
         }
@@ -90,7 +91,7 @@
                 font-size: 3rem;
             }
 
-            .box-grid {
+            .ztr_box-grid {
                 grid-template-columns: repeat(3, minmax(0, 1fr));
             }
         }
@@ -100,47 +101,47 @@
                 font-size: 3.5rem;
             }
 
-            .box-grid {
+            .ztr_box-grid {
                 grid-template-columns: repeat(4, minmax(0, 1fr));
             }
         }
     </style>
 </head>
 <body>
-    <main class="page">
+    <main class="ztr_page">
         <h1>张天润</h1>
-        <p class="intro">viewport 变化时，单行显示的盒子数量会同步变化</p>
+        <p class="ztr_intro">viewport 变化时，单行显示的盒子数量会同步变化</p>
 
-        <section class="box-grid" aria-label="响应式盒子布局">
-            <article class="box">
+        <section class="ztr_box-grid" aria-label="响应式盒子布局">
+            <article class="ztr_box">
                 <strong>盒子 1</strong>
                 <p>在 320px 至 599px 中，一行显示 1 个盒子。</p>
             </article>
-            <article class="box">
+            <article class="ztr_box">
                 <strong>盒子 2</strong>
                 <p>在 600px 至 899px 中，一行显示 2 个盒子。</p>
             </article>
-            <article class="box">
+            <article class="ztr_box">
                 <strong>盒子 3</strong>
                 <p>在 900px 至 1199px 中，一行显示 3 个盒子。</p>
             </article>
-            <article class="box">
+            <article class="ztr_box">
                 <strong>盒子 4</strong>
                 <p>在 1200px 及以上中，一行显示 4 个盒子。</p>
             </article>
-            <article class="box">
+            <article class="ztr_box">
                 <strong>盒子 5</strong>
                 <p>响应式布局根据当前视口自动调整。</p>
             </article>
-            <article class="box">
+            <article class="ztr_box">
                 <strong>盒子 6</strong>
                 <p>每个盒子都使用统一的响应式样式。</p>
             </article>
-            <article class="box">
+            <article class="ztr_box">
                 <strong>盒子 7</strong>
                 <p>页面最小宽度为 320px，避免超出视口。</p>
             </article>
-            <article class="box">
+            <article class="ztr_box">
                 <strong>盒子 8</strong>
                 <p>通过媒体查询实现不同的网格列数。</p>
             </article>

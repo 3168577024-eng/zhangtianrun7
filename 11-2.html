@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- 姓名：张天润，日期：功能名称 -->
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -28,14 +29,14 @@
             text-align: center;
         }
 
-        .zhang_scene {
+        .ztr_scene {
             width: 200px;
             height: 200px;
             perspective: 600px;
             margin: 30px 0;
         }
 
-        .zhang_cube {
+        .ztr_cube {
             width: 100%;
             height: 100%;
             position: relative;
@@ -43,7 +44,7 @@
             animation: zhang_rotate 8s linear infinite;
         }
 
-        .zhang_face {
+        .ztr_face {
             position: absolute;
             width: 200px;
             height: 200px;
@@ -56,19 +57,19 @@
             font-weight: bold;
         }
 
-        .zhang_front  { background: rgba(233, 30, 99, 0.7);  transform: translateZ(100px); }
-        .zhang_back   { background: rgba(76, 175, 80, 0.7);  transform: rotateY(180deg) translateZ(100px); }
-        .zhang_right  { background: rgba(33, 150, 243, 0.7);  transform: rotateY(90deg) translateZ(100px); }
-        .zhang_left   { background: rgba(255, 152, 0, 0.7);  transform: rotateY(-90deg) translateZ(100px); }
-        .zhang_top    { background: rgba(156, 39, 176, 0.7);  transform: rotateX(90deg) translateZ(100px); }
-        .zhang_bottom { background: rgba(0, 188, 212, 0.7);  transform: rotateX(-90deg) translateZ(100px); }
+        .ztr_front  { background: rgba(233, 30, 99, 0.7);  transform: translateZ(100px); }
+        .ztr_back   { background: rgba(76, 175, 80, 0.7);  transform: rotateY(180deg) translateZ(100px); }
+        .ztr_right  { background: rgba(33, 150, 243, 0.7);  transform: rotateY(90deg) translateZ(100px); }
+        .ztr_left   { background: rgba(255, 152, 0, 0.7);  transform: rotateY(-90deg) translateZ(100px); }
+        .ztr_top    { background: rgba(156, 39, 176, 0.7);  transform: rotateX(90deg) translateZ(100px); }
+        .ztr_bottom { background: rgba(0, 188, 212, 0.7);  transform: rotateX(-90deg) translateZ(100px); }
 
         @keyframes zhang_rotate {
             from { transform: rotateX(0deg) rotateY(0deg); }
             to   { transform: rotateX(360deg) rotateY(360deg); }
         }
 
-        .zhang_cards {
+        .ztr_cards {
             display: flex;
             gap: 30px;
             flex-wrap: wrap;
@@ -76,14 +77,14 @@
             margin-top: 30px;
         }
 
-        .zhang_card {
+        .ztr_card {
             width: 150px;
             height: 200px;
             perspective: 500px;
             cursor: pointer;
         }
 
-        .zhang_card-inner {
+        .ztr_card-inner {
             width: 100%;
             height: 100%;
             position: relative;
@@ -91,12 +92,12 @@
             transition: transform 0.8s ease;
         }
 
-        .zhang_card:hover .zhang_card-inner {
+        .ztr_card:hover .ztr_card-inner {
             transform: rotateY(180deg);
         }
 
-        .zhang_card-front,
-        .zhang_card-back {
+        .ztr_card-front,
+        .ztr_card-back {
             position: absolute;
             width: 100%;
             height: 100%;
@@ -110,23 +111,23 @@
             font-weight: bold;
         }
 
-        .zhang_card-front {
+        .ztr_card-front {
             background: linear-gradient(135deg, #667eea, #764ba2);
         }
 
-        .zhang_card-back {
+        .ztr_card-back {
             background: linear-gradient(135deg, #f093fb, #f5576c);
             transform: rotateY(180deg);
         }
 
-        .zhang_pyramid-scene {
+        .ztr_pyramid-scene {
             width: 200px;
             height: 200px;
             perspective: 600px;
             margin: 30px 0;
         }
 
-        .zhang_pyramid {
+        .ztr_pyramid {
             width: 0;
             height: 0;
             position: relative;
@@ -139,25 +140,25 @@
             to   { transform: rotateY(360deg) rotateX(20deg); }
         }
 
-        .zhang_section {
+        .ztr_section {
             margin: 40px 0;
             text-align: center;
         }
 
-        .zhang_section h2 {
+        .ztr_section h2 {
             color: #ccc;
             margin-bottom: 20px;
             font-size: 18px;
         }
 
-        .zhang_carousel-scene {
+        .ztr_carousel-scene {
             width: 220px;
             height: 150px;
             perspective: 700px;
             margin: 20px auto;
         }
 
-        .zhang_carousel {
+        .ztr_carousel {
             width: 100%;
             height: 100%;
             position: relative;
@@ -165,7 +166,7 @@
             animation: zhang_carousel-rotate 12s linear infinite;
         }
 
-        .zhang_carousel-item {
+        .ztr_carousel-item {
             position: absolute;
             width: 220px;
             height: 150px;
@@ -179,30 +180,30 @@
             border: 2px solid rgba(255,255,255,0.2);
         }
 
-        .zhang_carousel-item:nth-child(1) { background: rgba(233,30,99,0.8);  transform: rotateY(0deg) translateZ(200px); }
-        .zhang_carousel-item:nth-child(2) { background: rgba(76,175,80,0.8);  transform: rotateY(72deg) translateZ(200px); }
-        .zhang_carousel-item:nth-child(3) { background: rgba(33,150,243,0.8);  transform: rotateY(144deg) translateZ(200px); }
-        .zhang_carousel-item:nth-child(4) { background: rgba(255,152,0,0.8);  transform: rotateY(216deg) translateZ(200px); }
-        .zhang_carousel-item:nth-child(5) { background: rgba(156,39,176,0.8); transform: rotateY(288deg) translateZ(200px); }
+        .ztr_carousel-item:nth-child(1) { background: rgba(233,30,99,0.8);  transform: rotateY(0deg) translateZ(200px); }
+        .ztr_carousel-item:nth-child(2) { background: rgba(76,175,80,0.8);  transform: rotateY(72deg) translateZ(200px); }
+        .ztr_carousel-item:nth-child(3) { background: rgba(33,150,243,0.8);  transform: rotateY(144deg) translateZ(200px); }
+        .ztr_carousel-item:nth-child(4) { background: rgba(255,152,0,0.8);  transform: rotateY(216deg) translateZ(200px); }
+        .ztr_carousel-item:nth-child(5) { background: rgba(156,39,176,0.8); transform: rotateY(288deg) translateZ(200px); }
 
         @keyframes zhang_carousel-rotate {
             from { transform: rotateY(0deg); }
             to   { transform: rotateY(360deg); }
         }
 
-        .zhang_flip-scene {
+        .ztr_flip-scene {
             display: flex;
             gap: 40px;
             margin: 20px 0;
         }
 
-        .zhang_flip-box {
+        .ztr_flip-box {
             width: 100px;
             height: 100px;
             perspective: 400px;
         }
 
-        .zhang_flip-inner {
+        .ztr_flip-inner {
             width: 100%;
             height: 100%;
             position: relative;
@@ -210,11 +211,11 @@
             animation: zhang_flip 3s ease-in-out infinite;
         }
 
-        .zhang_flip-inner:nth-child(2) {
+        .ztr_flip-inner:nth-child(2) {
             animation-delay: 0.5s;
         }
 
-        .zhang_flip-face {
+        .ztr_flip-face {
             position: absolute;
             width: 100%;
             height: 100%;
@@ -226,12 +227,12 @@
             font-weight: bold;
         }
 
-        .zhang_flip-front {
+        .ztr_flip-front {
             background: rgba(0, 188, 212, 0.8);
             transform: translateZ(50px);
         }
 
-        .zhang_flip-back {
+        .ztr_flip-back {
             background: rgba(255, 87, 34, 0.8);
             transform: rotateY(180deg) translateZ(50px);
         }
@@ -245,76 +246,76 @@
 <body>
     <h1>CSS3 3D 动画展示</h1>
 
-    <div class="zhang_section">
+    <div class="ztr_section">
         <h2>3D 立方体旋转</h2>
-        <div class="zhang_scene">
-            <div class="zhang_cube">
-                <div class="zhang_face zhang_front">前</div>
-                <div class="zhang_face zhang_back">后</div>
-                <div class="zhang_face zhang_right">右</div>
-                <div class="zhang_face zhang_left">左</div>
-                <div class="zhang_face zhang_top">上</div>
-                <div class="zhang_face zhang_bottom">下</div>
+        <div class="ztr_scene">
+            <div class="ztr_cube">
+                <div class="ztr_face ztr_front">前</div>
+                <div class="ztr_face ztr_back">后</div>
+                <div class="ztr_face ztr_right">右</div>
+                <div class="ztr_face ztr_left">左</div>
+                <div class="ztr_face ztr_top">上</div>
+                <div class="ztr_face ztr_bottom">下</div>
             </div>
         </div>
     </div>
 
-    <div class="zhang_section">
+    <div class="ztr_section">
         <h2>3D 卡片翻转（hover 触发）</h2>
-        <div class="zhang_cards">
-            <div class="zhang_card">
-                <div class="zhang_card-inner">
-                    <div class="zhang_card-front">正面</div>
-                    <div class="zhang_card-back">背面</div>
+        <div class="ztr_cards">
+            <div class="ztr_card">
+                <div class="ztr_card-inner">
+                    <div class="ztr_card-front">正面</div>
+                    <div class="ztr_card-back">背面</div>
                 </div>
             </div>
-            <div class="zhang_card">
-                <div class="zhang_card-inner">
-                    <div class="zhang_card-front">HTML</div>
-                    <div class="zhang_card-back">5</div>
+            <div class="ztr_card">
+                <div class="ztr_card-inner">
+                    <div class="ztr_card-front">HTML</div>
+                    <div class="ztr_card-back">5</div>
                 </div>
             </div>
-            <div class="zhang_card">
-                <div class="zhang_card-inner">
-                    <div class="zhang_card-front">CSS</div>
-                    <div class="zhang_card-back">3</div>
+            <div class="ztr_card">
+                <div class="ztr_card-inner">
+                    <div class="ztr_card-front">CSS</div>
+                    <div class="ztr_card-back">3</div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="zhang_section">
+    <div class="ztr_section">
         <h2>3D 旋转木马</h2>
-        <div class="zhang_carousel-scene">
-            <div class="zhang_carousel">
-                <div class="zhang_carousel-item">1</div>
-                <div class="zhang_carousel-item">2</div>
-                <div class="zhang_carousel-item">3</div>
-                <div class="zhang_carousel-item">4</div>
-                <div class="zhang_carousel-item">5</div>
+        <div class="ztr_carousel-scene">
+            <div class="ztr_carousel">
+                <div class="ztr_carousel-item">1</div>
+                <div class="ztr_carousel-item">2</div>
+                <div class="ztr_carousel-item">3</div>
+                <div class="ztr_carousel-item">4</div>
+                <div class="ztr_carousel-item">5</div>
             </div>
         </div>
     </div>
 
-    <div class="zhang_section">
+    <div class="ztr_section">
         <h2>3D 翻转动画</h2>
-        <div class="zhang_flip-scene">
-            <div class="zhang_flip-box">
-                <div class="zhang_flip-inner">
-                    <div class="zhang_flip_face zhang_flip-front">正</div>
-                    <div class="zhang_flip_face zhang_flip-back">反</div>
+        <div class="ztr_flip-scene">
+            <div class="ztr_flip-box">
+                <div class="ztr_flip-inner">
+                    <div class="ztr_flip_face ztr_flip-front">正</div>
+                    <div class="ztr_flip_face ztr_flip-back">反</div>
                 </div>
             </div>
-            <div class="zhang_flip-box">
-                <div class="zhang_flip-inner">
-                    <div class="zhang_flip_face zhang_flip-front">正</div>
-                    <div class="zhang_flip_face zhang_flip-back">反</div>
+            <div class="ztr_flip-box">
+                <div class="ztr_flip-inner">
+                    <div class="ztr_flip_face ztr_flip-front">正</div>
+                    <div class="ztr_flip_face ztr_flip-back">反</div>
                 </div>
             </div>
-            <div class="zhang_flip-box">
-                <div class="zhang_flip-inner">
-                    <div class="zhang_flip_face zhang_flip-front">正</div>
-                    <div class="zhang_flip_face zhang_flip-back">反</div>
+            <div class="ztr_flip-box">
+                <div class="ztr_flip-inner">
+                    <div class="ztr_flip_face ztr_flip-front">正</div>
+                    <div class="ztr_flip_face ztr_flip-back">反</div>
                 </div>
             </div>
         </div>
