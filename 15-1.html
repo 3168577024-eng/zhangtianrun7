@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<!-- 姓名：张天润，日期：功能名称 -->
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数7游戏 - 100个盒子</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 30px 16px;
+            background: #f0f4f8;
+            font-family: "Microsoft YaHei", sans-serif;
+            color: #22303c;
+            line-height: 1.7;
+        }
+
+        .ztr_wrap {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 26px 30px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 6px 18px rgba(34, 48, 60, 0.08);
+        }
+
+        .ztr_title {
+            margin: 0 0 6px;
+            font-size: 26px;
+        }
+
+        .ztr_desc {
+            margin: 0 0 20px;
+            color: #66788a;
+            font-size: 14px;
+        }
+
+        .ztr_desc b {
+            color: #e8590c;
+        }
+
+        .ztr_grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 8px;
+        }
+
+        .ztr_box {
+            aspect-ratio: 1 / 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #c9d6e2;
+            border-radius: 6px;
+            background: #f8fbfd;
+            font-size: 16px;
+            font-weight: 700;
+            color: #2f6fed;
+        }
+
+        /* 满足数7规则的空盒子 */
+        .ztr_box.ztr_empty {
+            background: #fff3e6;
+            border: 1px dashed #e8590c;
+        }
+
+        .ztr_stat {
+            margin-top: 18px;
+            padding: 10px 14px;
+            background: #eef3f7;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .ztr_back {
+            display: inline-block;
+            margin-top: 16px;
+            color: #2f6fed;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .ztr_back:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 640px) {
+            .ztr_grid {
+                gap: 5px;
+            }
+
+            .ztr_box {
+                font-size: 12px;
+                border-radius: 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="ztr_wrap">
+        <h2 class="ztr_title">张天润：数7游戏（逢7过）</h2>
+        <p class="ztr_desc">
+            规则：<b>7 的倍数</b>或<b>数字中含有 7</b>（末尾是 7、十位是 7 等）的盒子输出<b>空盒子</b>，
+            其余盒子输出盒子内部的数字。1 ~ 100 共 100 个盒子。
+        </p>
+
+        <div class="ztr_grid" id="ztr_grid"></div>
+
+        <div class="ztr_stat" id="ztr_stat"></div>
+
+        <a class="ztr_back" href="./index.html">← 返回作品目录</a>
+    </div>
+
+    <script>
+        // 判断数7规则：7的倍数，或数字中含有7（末尾是7、十位是7等）
+        function ztr_isSeven(n) {
+            return n % 7 === 0 || String(n).indexOf("7") !== -1;
+        }
+
+        // 生成 100 个盒子
+        var ztr_grid = document.getElementById("ztr_grid");
+        var ztr_html = "";
+        var ztr_emptyCount = 0;
+        for (var ztr_i = 1; ztr_i <= 100; ztr_i++) {
+            if (ztr_isSeven(ztr_i)) {
+                // 满足规则：输出空盒子
+                ztr_html += "<div class='ztr_box ztr_empty' title='" + ztr_i + " 过'></div>";
+                ztr_emptyCount++;
+            } else {
+                // 不满足规则：盒子内部输出数字
+                ztr_html += "<div class='ztr_box'>" + ztr_i + "</div>";
+            }
+        }
+        ztr_grid.innerHTML = ztr_html;
+
+        // 统计信息
+        document.getElementById("ztr_stat").textContent =
+            "统计：共 100 个盒子，其中满足数7规则的空盒子 " + ztr_emptyCount + " 个，显示数字的盒子 " + (100 - ztr_emptyCount) + " 个。（鼠标悬停空盒子可查看对应的数字）";
+    </script>
+</body>
+</html>
