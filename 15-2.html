@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<!-- 姓名：张天润，日期：功能名称 -->
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript 程序结构：条件与循环</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 30px 16px;
+            background: #f0f4f8;
+            font-family: "Microsoft YaHei", sans-serif;
+            color: #22303c;
+            line-height: 1.7;
+        }
+
+        .ztr_wrap {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 26px 30px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 6px 18px rgba(34, 48, 60, 0.08);
+        }
+
+        .ztr_title {
+            margin: 0 0 6px;
+            font-size: 26px;
+        }
+
+        .ztr_desc {
+            margin: 0 0 24px;
+            color: #66788a;
+            font-size: 14px;
+        }
+
+        .ztr_panel {
+            margin-bottom: 22px;
+            padding: 18px 20px;
+            border: 1px solid #dde5ec;
+            border-radius: 8px;
+            background: #fafcfd;
+        }
+
+        .ztr_panel h3 {
+            margin: 0 0 10px;
+            font-size: 18px;
+        }
+
+        .ztr_panel h3 span {
+            display: inline-block;
+            margin-right: 8px;
+            padding: 2px 10px;
+            border-radius: 10px;
+            background: #2f6fed;
+            color: #fff;
+            font-size: 12px;
+        }
+
+        .ztr_panel p {
+            margin: 0 0 10px;
+            font-size: 13px;
+            color: #66788a;
+        }
+
+        .ztr_input {
+            width: 120px;
+            padding: 7px 10px;
+            border: 1px solid #c9d6e2;
+            border-radius: 4px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .ztr_input:focus {
+            border-color: #2f6fed;
+        }
+
+        .ztr_btn {
+            margin: 0 8px 0 6px;
+            padding: 8px 18px;
+            border: none;
+            border-radius: 4px;
+            background: #2f6fed;
+            color: #fff;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .ztr_btn:hover {
+            background: #2459c4;
+        }
+
+        .ztr_output {
+            margin-top: 12px;
+            padding: 12px 14px;
+            background: #1e2530;
+            color: #9fe3a1;
+            border-radius: 6px;
+            font-family: Consolas, monospace;
+            font-size: 13px;
+            white-space: pre-wrap;
+            min-height: 20px;
+        }
+
+        .ztr_result {
+            margin-top: 12px;
+            padding: 10px 14px;
+            background: #eef3f7;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #e8590c;
+        }
+
+        .ztr_table9 {
+            margin-top: 12px;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+
+        .ztr_table9 td {
+            padding: 4px 8px;
+            border: 1px solid #dde5ec;
+            background: #fff;
+            color: #2f6fed;
+            white-space: nowrap;
+        }
+
+        .ztr_back {
+            display: inline-block;
+            margin-top: 4px;
+            color: #2f6fed;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .ztr_back:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="ztr_wrap">
+        <h2 class="ztr_title">张天润：JavaScript 程序结构（条件与循环）</h2>
+        <p class="ztr_desc">演示 JavaScript 三大程序结构中的两种：<b>条件结构</b>（if / else if / else、switch）与<b>循环结构</b>（for、while、嵌套 for）。输入数据后点击按钮查看运行结果。</p>
+
+        <!-- 一、条件结构 -->
+        <div class="ztr_panel">
+            <h3><span>条件</span>if / else if / else 成绩等级判断</h3>
+            <p>输入 0 ~ 100 的分数：≥90 优秀，≥80 良好，≥60 及格，否则不及格。</p>
+            <input class="ztr_input" id="ztr_score" type="number" min="0" max="100" placeholder="如 85">
+            <button class="ztr_btn" onclick="ztr_checkGrade()">判断等级</button>
+            <div class="ztr_result" id="ztr_grade-result">等待输入……</div>
+        </div>
+
+        <div class="ztr_panel">
+            <h3><span>条件</span>switch 星期查询</h3>
+            <p>输入数字 1 ~ 7，用 switch 语句输出对应的星期。</p>
+            <input class="ztr_input" id="ztr_day" type="number" min="1" max="7" placeholder="如 6">
+            <button class="ztr_btn" onclick="ztr_checkDay()">查询星期</button>
+            <div class="ztr_result" id="ztr_day-result">等待输入……</div>
+        </div>
+
+        <!-- 二、循环结构 -->
+        <div class="ztr_panel">
+            <h3><span>循环</span>for 循环：1 ~ 100 累加求和</h3>
+            <p>使用 for 循环把 1 加到 100，演示计数循环。</p>
+            <button class="ztr_btn" onclick="ztr_runFor()">运行 for 循环</button>
+            <div class="ztr_output" id="ztr_for-output">等待运行……</div>
+        </div>
+
+        <div class="ztr_panel">
+            <h3><span>循环</span>while 循环：5 的阶乘</h3>
+            <p>使用 while 循环计算 1×2×3×4×5，并顺带列出 1 ~ 10 中的偶数。</p>
+            <button class="ztr_btn" onclick="ztr_runWhile()">运行 while 循环</button>
+            <div class="ztr_output" id="ztr_while-output">等待运行……</div>
+        </div>
+
+        <div class="ztr_panel">
+            <h3><span>循环</span>嵌套 for 循环：九九乘法表</h3>
+            <p>外层循环控制行、内层循环控制列，页面加载时自动生成。</p>
+            <table class="ztr_table9" id="ztr_table9"></table>
+        </div>
+
+        <a class="ztr_back" href="./index.html">← 返回作品目录</a>
+    </div>
+
+    <script>
+        // ========== 一、条件结构 ==========
+        // 1. if / else if / else：成绩等级判断
+        function ztr_checkGrade() {
+            var ztr_score = Number(document.getElementById("ztr_score").value);
+            var ztr_grade;
+            if (isNaN(ztr_score) || ztr_score < 0 || ztr_score > 100) {
+                ztr_grade = "请输入 0 ~ 100 之间的有效分数！";
+            } else if (ztr_score >= 90) {
+                ztr_grade = ztr_score + " 分：优秀";
+            } else if (ztr_score >= 80) {
+                ztr_grade = ztr_score + " 分：良好";
+            } else if (ztr_score >= 60) {
+                ztr_grade = ztr_score + " 分：及格";
+            } else {
+                ztr_grade = ztr_score + " 分：不及格";
+            }
+            document.getElementById("ztr_grade-result").textContent = ztr_grade;
+        }
+
+        // 2. switch：星期查询
+        function ztr_checkDay() {
+            var ztr_day = Number(document.getElementById("ztr_day").value);
+            var ztr_name;
+            switch (ztr_day) {
+                case 1: ztr_name = "星期一"; break;
+                case 2: ztr_name = "星期二"; break;
+                case 3: ztr_name = "星期三"; break;
+                case 4: ztr_name = "星期四"; break;
+                case 5: ztr_name = "星期五"; break;
+                case 6: ztr_name = "星期六"; break;
+                case 7: ztr_name = "星期日"; break;
+                default: ztr_name = "请输入 1 ~ 7 之间的数字！";
+            }
+            document.getElementById("ztr_day-result").textContent = ztr_name;
+        }
+
+        // ========== 二、循环结构 ==========
+        // 3. for 循环：1 ~ 100 求和
+        function ztr_runFor() {
+            var ztr_sum = 0;
+            var ztr_steps = "";
+            for (var ztr_i = 1; ztr_i <= 100; ztr_i++) {
+                ztr_sum += ztr_i;
+                if (ztr_i === 1 || ztr_i === 50 || ztr_i === 100) {
+                    ztr_steps += "加到 " + ztr_i + " 时，和 = " + ztr_sum + "\n";
+                }
+            }
+            document.getElementById("ztr_for-output").textContent =
+                ztr_steps + "最终结果：1 + 2 + … + 100 = " + ztr_sum;
+        }
+
+        // 4. while 循环：阶乘 + 偶数
+        function ztr_runWhile() {
+            var ztr_n = 1;
+            var ztr_factorial = 1;
+            while (ztr_n <= 5) {
+                ztr_factorial *= ztr_n;
+                ztr_n++;
+            }
+            var ztr_evens = "";
+            var ztr_m = 2;
+            do {
+                ztr_evens += ztr_m + " ";
+                ztr_m += 2;
+            } while (ztr_m <= 10);
+            document.getElementById("ztr_while-output").textContent =
+                "while：5! = 1×2×3×4×5 = " + ztr_factorial + "\n" +
+                "do-while：1 ~ 10 的偶数：" + ztr_evens;
+        }
+
+        // 5. 嵌套 for：九九乘法表
+        (function ztr_renderTable9() {
+            var ztr_html = "";
+            for (var ztr_row = 1; ztr_row <= 9; ztr_row++) {
+                ztr_html += "<tr>";
+                for (var ztr_col = 1; ztr_col <= ztr_row; ztr_col++) {
+                    ztr_html += "<td>" + ztr_col + "×" + ztr_row + "=" + (ztr_col * ztr_row) + "</td>";
+                }
+                ztr_html += "</tr>";
+            }
+            document.getElementById("ztr_table9").innerHTML = ztr_html;
+        })();
+    </script>
+</body>
+</html>
