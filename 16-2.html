@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<!-- 姓名：张天润，日期：JavaScript对象与字符串 -->
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript 对象与字符串</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 30px 16px;
+            background: #f0f4f8;
+            font-family: "Microsoft YaHei", sans-serif;
+            color: #22303c;
+            line-height: 1.7;
+        }
+
+        .ztr_wrap {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 26px 30px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 6px 18px rgba(34, 48, 60, 0.08);
+        }
+
+        .ztr_title {
+            margin: 0 0 6px;
+            font-size: 26px;
+        }
+
+        .ztr_desc {
+            margin: 0 0 24px;
+            color: #66788a;
+            font-size: 14px;
+        }
+
+        .ztr_panel {
+            margin-bottom: 22px;
+            padding: 18px 20px;
+            border: 1px solid #dde5ec;
+            border-radius: 8px;
+            background: #fafcfd;
+        }
+
+        .ztr_panel h3 {
+            margin: 0 0 10px;
+            font-size: 18px;
+        }
+
+        .ztr_panel h3 span {
+            display: inline-block;
+            margin-right: 8px;
+            padding: 2px 10px;
+            border-radius: 10px;
+            background: #2f6fed;
+            color: #fff;
+            font-size: 12px;
+        }
+
+        .ztr_panel p {
+            margin: 0 0 10px;
+            font-size: 13px;
+            color: #66788a;
+        }
+
+        .ztr_input {
+            width: 200px;
+            padding: 7px 10px;
+            border: 1px solid #c9d6e2;
+            border-radius: 4px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .ztr_input:focus {
+            border-color: #2f6fed;
+        }
+
+        .ztr_btn {
+            margin: 0 8px 0 6px;
+            padding: 8px 18px;
+            border: none;
+            border-radius: 4px;
+            background: #2f6fed;
+            color: #fff;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .ztr_btn:hover {
+            background: #2459c4;
+        }
+
+        .ztr_output {
+            margin-top: 12px;
+            padding: 12px 14px;
+            background: #1e2530;
+            color: #9fe3a1;
+            border-radius: 6px;
+            font-family: Consolas, monospace;
+            font-size: 13px;
+            white-space: pre-wrap;
+            min-height: 20px;
+        }
+
+        .ztr_result {
+            margin-top: 12px;
+            padding: 10px 14px;
+            background: #eef3f7;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #e8590c;
+        }
+
+        .ztr_card {
+            display: inline-block;
+            margin: 0 8px 8px 0;
+            padding: 8px 14px;
+            border: 1px solid #c9d6e2;
+            border-radius: 6px;
+            background: #fff;
+            font-size: 13px;
+        }
+
+        .ztr_card b {
+            color: #2f6fed;
+        }
+
+        .ztr_back {
+            display: inline-block;
+            margin-top: 4px;
+            color: #2f6fed;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .ztr_back:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="ztr_wrap">
+        <h2 class="ztr_title">张天润：JavaScript 对象与字符串</h2>
+        <p class="ztr_desc">演示 JavaScript 中<b>对象</b>（创建、访问属性、增删属性、for...in 遍历）与<b>字符串</b>（length、索引、截取、查找、替换、分割、大小写）的常用操作。点击按钮查看运行结果。</p>
+
+        <!-- 一、对象 -->
+        <div class="ztr_panel">
+            <h3><span>对象</span>创建对象并访问属性</h3>
+            <p>使用字面量方式创建一个学生对象 ztr_student，分别用点语法和中括号语法访问属性。</p>
+            <button class="ztr_btn" onclick="ztr_showStudent()">查看学生对象</button>
+            <div class="ztr_output" id="ztr_obj-output">等待运行……</div>
+        </div>
+
+        <div class="ztr_panel">
+            <h3><span>对象</span>for...in 遍历对象属性</h3>
+            <p>使用 for...in 循环列出对象的每一个属性名和属性值，并统计属性个数。</p>
+            <button class="ztr_btn" onclick="ztr_walkStudent()">遍历属性</button>
+            <div class="ztr_output" id="ztr_loop-output">等待运行……</div>
+        </div>
+
+        <div class="ztr_panel">
+            <h3><span>对象</span>动态增删属性与对象方法</h3>
+            <p>给对象新增一个属性、删除一个属性，并调用对象内部的方法。</p>
+            <button class="ztr_btn" onclick="ztr_changeStudent()">增删属性并调用方法</button>
+            <div class="ztr_output" id="ztr_edit-output">等待运行……</div>
+        </div>
+
+        <!-- 二、字符串 -->
+        <div class="ztr_panel">
+            <h3><span>字符串</span>length 与字符访问</h3>
+            <p>输入一句话，演示字符串长度、charAt 取字符和 indexOf 查找位置。</p>
+            <input class="ztr_input" id="ztr_text1" type="text" value="JavaScript 很有趣" placeholder="请输入一句话">
+            <button class="ztr_btn" onclick="ztr_showChars()">分析字符串</button>
+            <div class="ztr_output" id="ztr_char-output">等待运行……</div>
+        </div>
+
+        <div class="ztr_panel">
+            <h3><span>字符串</span>截取 slice 与替换 replace</h3>
+            <p>使用 slice 截取前 5 个字符，使用 replace 把第一个出现的空格替换为"-"。</p>
+            <input class="ztr_input" id="ztr_text2" type="text" value="hello world web design" placeholder="请输入一句话">
+            <button class="ztr_btn" onclick="ztr_cutString()">截取并替换</button>
+            <div class="ztr_output" id="ztr_cut-output">等待运行……</div>
+        </div>
+
+        <div class="ztr_panel">
+            <h3><span>字符串</span>分割 split 与大小写转换</h3>
+            <p>使用 split 按空格把句子拆成单词数组，再用 toUpperCase / toLowerCase 转换大小写。</p>
+            <button class="ztr_btn" onclick="ztr_splitString()">拆分与转换</button>
+            <div class="ztr_output" id="ztr_split-output">等待运行……</div>
+        </div>
+
+        <div class="ztr_panel">
+            <h3><span>综合</span>对象转字符串（JSON）与模板拼接</h3>
+            <p>使用 JSON.stringify 把对象转成字符串，使用模板字符串生成自我介绍，页面加载时自动演示。</p>
+            <div id="ztr_json-box"></div>
+            <div class="ztr_result" id="ztr_json-result">等待运行……</div>
+        </div>
+
+        <a class="ztr_back" href="./index.html">← 返回作品目录</a>
+    </div>
+
+    <script>
+        // ========== 一、对象 ==========
+        // 定义一个学生对象（字面量方式，含一个方法）
+        var ztr_student = {
+            name: "张天润",
+            age: 20,
+            major: "高级网页设计",
+            scores: [92, 88, 95],
+            intro: function () {
+                return "我叫" + this.name + "，今年 " + this.age + " 岁，正在学习《" + this.major + "》。";
+            }
+        };
+
+        // 1. 创建对象并访问属性：点语法 / 中括号语法
+        function ztr_showStudent() {
+            var ztr_info = "";
+            ztr_info += "点语法访问    ztr_student.name  = " + ztr_student.name + "\n";
+            ztr_info += "中括号访问    ztr_student[\"major\"] = " + ztr_student["major"] + "\n";
+            ztr_info += "访问嵌套数组  ztr_student.scores[2] = " + ztr_student.scores[2] + "\n";
+            ztr_info += "typeof 检测   typeof ztr_student = " + typeof ztr_student;
+            document.getElementById("ztr_obj-output").textContent = ztr_info;
+        }
+
+        // 2. for...in 遍历对象属性
+        function ztr_walkStudent() {
+            var ztr_count = 0;
+            var ztr_info = "";
+            for (var ztr_key in ztr_student) {
+                // 只列出普通属性（方法除外）
+                if (typeof ztr_student[ztr_key] !== "function") {
+                    ztr_count++;
+                    ztr_info += "第 " + ztr_count + " 个属性：" + ztr_key + " = " + ztr_student[ztr_key] + "\n";
+                }
+            }
+            ztr_info += "对象共有 " + ztr_count + " 个普通属性（方法未计入）";
+            document.getElementById("ztr_loop-output").textContent = ztr_info;
+        }
+
+        // 3. 动态增删属性与调用对象方法
+        function ztr_changeStudent() {
+            var ztr_info = "";
+            // 新增属性
+            ztr_student.gender = "男";
+            ztr_info += "新增属性后：ztr_student.gender = " + ztr_student.gender + "\n";
+            // 删除属性
+            delete ztr_student.age;
+            ztr_info += "删除 age 后：ztr_student.age = " + ztr_student.age + "\n";
+            // 调用对象内部的方法
+            ztr_info += "调用对象方法 ztr_student.intro()：\n" + ztr_student.intro();
+            document.getElementById("ztr_edit-output").textContent = ztr_info;
+        }
+
+        // ========== 二、字符串 ==========
+        // 4. length、charAt、indexOf
+        function ztr_showChars() {
+            var ztr_str = document.getElementById("ztr_text1").value;
+            var ztr_info = "";
+            ztr_info += "原字符串：\"" + ztr_str + "\"\n";
+            ztr_info += "length 长度 = " + ztr_str.length + "\n";
+            if (ztr_str.length > 0) {
+                ztr_info += "charAt(0) 第一个字符 = " + ztr_str.charAt(0) + "\n";
+                ztr_info += "charAt(" + (ztr_str.length - 1) + ") 最后一个字符 = " + ztr_str.charAt(ztr_str.length - 1) + "\n";
+                ztr_info += "indexOf(\"a\") = " + ztr_str.indexOf("a") + "（-1 表示没找到）";
+            } else {
+                ztr_info += "请先输入内容！";
+            }
+            document.getElementById("ztr_char-output").textContent = ztr_info;
+        }
+
+        // 5. slice 截取与 replace 替换
+        function ztr_cutString() {
+            var ztr_str = document.getElementById("ztr_text2").value;
+            var ztr_info = "";
+            ztr_info += "原字符串：\"" + ztr_str + "\"\n";
+            ztr_info += "slice(0, 5) 截取前 5 个字符 = \"" + ztr_str.slice(0, 5) + "\"\n";
+            ztr_info += "slice(-5) 截取最后 5 个字符 = \"" + ztr_str.slice(-5) + "\"\n";
+            ztr_info += "replace(\" \", \"-\") 替换第一个空格 = \"" + ztr_str.replace(" ", "-") + "\"";
+            document.getElementById("ztr_cut-output").textContent = ztr_info;
+        }
+
+        // 6. split 分割与大小写转换
+        function ztr_splitString() {
+            var ztr_str = document.getElementById("ztr_text2").value;
+            var ztr_words = ztr_str.split(" ");
+            var ztr_info = "";
+            ztr_info += "split(\" \") 按空格拆分，共 " + ztr_words.length + " 个单词：\n";
+            for (var ztr_i = 0; ztr_i < ztr_words.length; ztr_i++) {
+                ztr_info += "  [" + ztr_i + "] " + ztr_words[ztr_i] + "\n";
+            }
+            ztr_info += "toUpperCase() = \"" + ztr_str.toUpperCase() + "\"\n";
+            ztr_info += "toLowerCase() = \"" + ztr_str.toLowerCase() + "\"\n";
+            ztr_info += "join(\" + \") 重新拼接 = \"" + ztr_words.join(" + ") + "\"";
+            document.getElementById("ztr_split-output").textContent = ztr_info;
+        }
+
+        // 7. 综合：JSON.stringify + 模板字符串（页面加载时自动运行）
+        (function ztr_renderJson() {
+            // 对象 -> 字符串
+            var ztr_json = JSON.stringify(ztr_student);
+            var ztr_cardHtml = "<span class=\"ztr_card\">JSON.stringify(对象) = <b>" + ztr_json + "</b></span>";
+            document.getElementById("ztr_json-box").innerHTML = ztr_cardHtml;
+
+            // 字符串 -> 对象
+            var ztr_back = JSON.parse(ztr_json);
+            // 模板字符串拼接
+            var ztr_intro = `我是 ${ztr_back.name}，我的专业是 ${ztr_back.major}，三科成绩分别是 ${ztr_back.scores.join("、")} 分。`;
+            document.getElementById("ztr_json-result").textContent = "模板字符串拼接结果：" + ztr_intro;
+        })();
+    </script>
+</body>
+</html>

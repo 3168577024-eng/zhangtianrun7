@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<!-- 姓名：张天润，日期：JavaScript数组方法可视化 -->
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript 数组方法可视化演示</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 30px 16px;
+            background: #f0f4f8;
+            font-family: "Microsoft YaHei", sans-serif;
+            color: #22303c;
+            line-height: 1.7;
+        }
+
+        .ztr_wrap {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 26px 30px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 6px 18px rgba(34, 48, 60, 0.08);
+        }
+
+        .ztr_title {
+            margin: 0 0 6px;
+            font-size: 26px;
+        }
+
+        .ztr_desc {
+            margin: 0 0 20px;
+            color: #66788a;
+            font-size: 14px;
+        }
+
+        .ztr_desc b {
+            color: #e8590c;
+        }
+
+        /* 演示舞台：数组轨道 */
+        .ztr_stage {
+            padding: 16px;
+            background: #f8fbfd;
+            border: 1px solid #dbe6f0;
+            border-radius: 8px;
+        }
+
+        .ztr_stage-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            color: #5f7691;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .ztr_reset {
+            padding: 6px 14px;
+            border: 1px solid #c9d6e2;
+            border-radius: 6px;
+            background: #fff;
+            color: #e8590c;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.18s ease;
+        }
+
+        .ztr_reset:hover {
+            background: #e8590c;
+            border-color: #e8590c;
+            color: #fff;
+        }
+
+        .ztr_track {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            min-height: 120px;
+            padding: 10px 0;
+            border: 1px dashed #c9d6e2;
+            border-radius: 8px;
+        }
+
+        .ztr_cell {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 86px;
+            height: 86px;
+            border-radius: 10px;
+            color: #fff;
+            background: #2f6fed;
+            box-shadow: 0 6px 14px rgba(34, 48, 60, 0.18);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease, filter 0.25s ease;
+        }
+
+        .ztr_cell .ztr_idx {
+            font-size: 11px;
+            opacity: 0.75;
+        }
+
+        .ztr_cell .ztr_val {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        /* 即将进入的新元素（幽灵盒子） */
+        .ztr_cell.ztr_ghost {
+            background: transparent;
+            border: 2px dashed #94a9c0;
+            color: #5f7691;
+            box-shadow: none;
+            animation: ztr_blink 1s infinite;
+        }
+
+        @keyframes ztr_blink {
+            50% {
+                opacity: 0.35;
+            }
+        }
+
+        /* 检查 / 遍历时的高亮状态 */
+        .ztr_cell.ztr_active {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 18px rgba(47, 111, 237, 0.4);
+            outline: 3px solid #1c3d80;
+        }
+
+        .ztr_cell.ztr_good {
+            transform: translateY(-8px);
+            filter: brightness(1.12);
+            outline: 3px solid #12b886;
+        }
+
+        .ztr_cell.ztr_bad {
+            filter: grayscale(1);
+            opacity: 0.45;
+        }
+
+        /* 新元素进入动画 */
+        .ztr_cell.ztr_in {
+            animation: ztr_popin 0.45s cubic-bezier(0.2, 1.4, 0.4, 1);
+        }
+
+        @keyframes ztr_popin {
+            from {
+                transform: scale(0.2);
+                opacity: 0;
+            }
+        }
+
+        /* 元素移出动画（尾部飞出 / 头部飞出） */
+        .ztr_cell.ztr_outR {
+            animation: ztr_flyR 0.4s forwards;
+        }
+
+        @keyframes ztr_flyR {
+            to {
+                transform: translateX(70px) scale(0.3);
+                opacity: 0;
+            }
+        }
+
+        .ztr_cell.ztr_outL {
+            animation: ztr_flyL 0.4s forwards;
+        }
+
+        @keyframes ztr_flyL {
+            to {
+                transform: translateX(-70px) scale(0.3);
+                opacity: 0;
+            }
+        }
+
+        /* 代码展示区 */
+        .ztr_code {
+            margin-top: 16px;
+            padding: 12px 16px;
+            background: #22303c;
+            border-radius: 8px;
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 15px;
+        }
+
+        .ztr_code-line {
+            color: #d9e6f2;
+        }
+
+        .ztr_code-desc {
+            margin-top: 4px;
+            color: #8fb8dd;
+            font-family: "Microsoft YaHei", sans-serif;
+            font-size: 13px;
+        }
+
+        /* 结果展示区 */
+        .ztr_result {
+            min-height: 52px;
+            margin-top: 12px;
+            padding: 12px 16px;
+            background: #eef6ef;
+            border: 1px solid #bfe0c8;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .ztr_mini {
+            display: inline-flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+        .ztr_mini b {
+            min-width: 34px;
+            padding: 4px 10px;
+            background: #fff;
+            border: 1px solid #12b886;
+            border-radius: 6px;
+            color: #0b7a5c;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        /* 方法按钮分组 */
+        .ztr_group-title {
+            margin: 18px 0 8px;
+            color: #66788a;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .ztr_btns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .ztr_btn {
+            padding: 8px 14px;
+            border: 1px solid #c9d6e2;
+            border-radius: 6px;
+            background: #fff;
+            color: #2f6fed;
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.18s ease;
+        }
+
+        .ztr_btn:hover {
+            background: #2f6fed;
+            border-color: #2f6fed;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .ztr_btn:disabled {
+            opacity: 0.5;
+            cursor: wait;
+            transform: none;
+        }
+
+        .ztr_fetchinfo {
+            margin-top: 18px;
+            padding: 10px 14px;
+            background: #eef3f7;
+            border-radius: 6px;
+            color: #66788a;
+            font-size: 13px;
+        }
+
+        .ztr_back {
+            display: inline-block;
+            margin-top: 16px;
+            color: #2f6fed;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .ztr_back:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 640px) {
+            .ztr_track {
+                gap: 8px;
+            }
+
+            .ztr_cell {
+                width: 62px;
+                height: 62px;
+                border-radius: 8px;
+            }
+
+            .ztr_cell .ztr_val {
+                font-size: 17px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="ztr_wrap">
+        <h1 class="ztr_title">张天润：JavaScript 数组方法可视化</h1>
+        <p class="ztr_desc">
+            当前数组 <b>let ztr_arr = [10, 20, 30, 40]</b>。点击下方方法按钮，观察盒子的<b>进入、飞出、逐个检查</b>等动画，
+            理解每个方法做了什么、返回什么、是否修改原数组。演示混乱后可点击"重置数组"恢复。
+        </p>
+
+        <div class="ztr_stage">
+            <div class="ztr_stage-head">
+                <span>数组轨道（每个盒子是一个元素，上方小字是索引）</span>
+                <button class="ztr_reset" id="ztr_reset" type="button">重置数组</button>
+            </div>
+            <div class="ztr_track" id="ztr_track"></div>
+        </div>
+
+        <div class="ztr_code" id="ztr_code">点击任意方法按钮开始演示…</div>
+
+        <div class="ztr_result" id="ztr_result">等待演示…</div>
+
+        <div id="ztr_btnarea"></div>
+
+        <div class="ztr_fetchinfo" id="ztr_fetchinfo">正在通过 fetch 获取服务器数据…</div>
+
+        <a class="ztr_back" href="./index.html">← 返回作品目录</a>
+    </div>
+
+    <script>
+        // 当前演示的数组
+        var ztr_arr = [10, 20, 30, 40];
+        var ztr_track = document.getElementById("ztr_track");
+        var ztr_result = document.getElementById("ztr_result");
+        var ztr_code = document.getElementById("ztr_code");
+        var ztr_busy = false; // 防止动画未结束就连续点击
+        var ztr_colors = ["#2f6fed", "#12b886", "#f59f00", "#e8590c", "#9c36b5", "#0ca678", "#1c7ed6", "#e64980"];
+
+        // 渲染数组轨道
+        function ztr_render(ztr_list, ztr_opt) {
+            ztr_opt = ztr_opt || {};
+            var ztr_html = "";
+            var ztr_i;
+            if (ztr_opt.ghostHead) {
+                ztr_html += "<div class='ztr_cell ztr_ghost'><span class='ztr_idx'>新元素</span><span class='ztr_val'>" + ztr_opt.ghostHead + "</span></div>";
+            }
+            for (ztr_i = 0; ztr_i < ztr_list.length; ztr_i++) {
+                var ztr_cls = "ztr_cell";
+                if (ztr_opt.inIdx && ztr_opt.inIdx.indexOf(ztr_i) !== -1) { ztr_cls += " ztr_in"; }
+                if (ztr_opt.outIdxL && ztr_opt.outIdxL.indexOf(ztr_i) !== -1) { ztr_cls += " ztr_outL"; }
+                if (ztr_opt.outIdxR && ztr_opt.outIdxR.indexOf(ztr_i) !== -1) { ztr_cls += " ztr_outR"; }
+                ztr_html += "<div class='" + ztr_cls + "' style='background:" + ztr_colors[ztr_i % ztr_colors.length] + "'>" +
+                    "<span class='ztr_idx'>[" + ztr_i + "]</span><span class='ztr_val'>" + ztr_list[ztr_i] + "</span></div>";
+            }
+            if (ztr_opt.ghostTail) {
+                ztr_html += "<div class='ztr_cell ztr_ghost'><span class='ztr_idx'>新元素</span><span class='ztr_val'>" + ztr_opt.ghostTail + "</span></div>";
+            }
+            ztr_track.innerHTML = ztr_html;
+        }
+
+        // 数组转显示字符串
+        function ztr_arrStr(ztr_list) {
+            return "[" + ztr_list.join(", ") + "]";
+        }
+
+        // 全部索引
+        function ztr_allIdx() {
+            var ztr_r = [];
+            for (var ztr_i = 0; ztr_i < ztr_arr.length; ztr_i++) { ztr_r.push(ztr_i); }
+            return ztr_r;
+        }
+
+        // 显示结果（可附一个小数组盒子）
+        function ztr_resultShow(ztr_html, ztr_newArr) {
+            var ztr_s = ztr_html;
+            if (ztr_newArr) {
+                ztr_s += "<div class='ztr_mini'>";
+                for (var ztr_i = 0; ztr_i < ztr_newArr.length; ztr_i++) {
+                    ztr_s += "<b>" + ztr_newArr[ztr_i] + "</b>";
+                }
+                ztr_s += "</div>";
+            }
+            ztr_result.innerHTML = ztr_s;
+        }
+
+        // 显示执行的代码与说明
+        function ztr_codeShow(ztr_codeText, ztr_descText) {
+            ztr_code.innerHTML = "<div class='ztr_code-line'>&gt; " + ztr_codeText + "</div>" +
+                "<div class='ztr_code-desc'>" + ztr_descText + "</div>";
+        }
+
+        // 分步动画：逐个高亮元素并显示步骤信息
+        function ztr_seq(ztr_steps, ztr_done) {
+            var ztr_k = 0;
+            function ztr_next() {
+                if (ztr_k >= ztr_steps.length) {
+                    ztr_done();
+                    return;
+                }
+                var ztr_s = ztr_steps[ztr_k];
+                var ztr_cells = ztr_track.querySelectorAll(".ztr_cell:not(.ztr_ghost)");
+                for (var ztr_i = 0; ztr_i < ztr_cells.length; ztr_i++) {
+                    ztr_cells[ztr_i].classList.remove("ztr_active", "ztr_good", "ztr_bad");
+                }
+                if (ztr_s.idx) {
+                    for (var ztr_j = 0; ztr_j < ztr_s.idx.length; ztr_j++) {
+                        var ztr_c = ztr_cells[ztr_s.idx[ztr_j]];
+                        if (ztr_c) { ztr_c.classList.add(ztr_s.cls || "ztr_active"); }
+                    }
+                }
+                if (ztr_s.info !== undefined) { ztr_resultShow(ztr_s.info); }
+                ztr_k++;
+                setTimeout(ztr_next, 420);
+            }
+            ztr_next();
+        }
+
+        // 方法清单：按钮 + 代码 + 说明
+        var ztr_methods = [
+            { group: "一、增删元素（会修改原数组）", items: [
+                { key: "push", label: "push(66)", code: "ztr_arr.push(66)", desc: "向数组末尾添加元素，返回新长度。原数组被修改。" },
+                { key: "pop", label: "pop()", code: "ztr_arr.pop()", desc: "移除数组最后一个元素，返回被移除的元素。原数组被修改。" },
+                { key: "unshift", label: "unshift(66)", code: "ztr_arr.unshift(66)", desc: "向数组开头添加元素，返回新长度。原数组被修改。" },
+                { key: "shift", label: "shift()", code: "ztr_arr.shift()", desc: "移除数组第一个元素，返回被移除的元素。原数组被修改。" },
+                { key: "splice", label: "splice(1,1,'★')", code: "ztr_arr.splice(1, 1, '★')", desc: "从索引 1 开始删除 1 个元素并插入 '★'，返回被删除元素组成的数组。原数组被修改。" }
+            ]},
+            { group: "二、重排元素（会修改原数组）", items: [
+                { key: "reverse", label: "reverse()", code: "ztr_arr.reverse()", desc: "将数组元素首尾对调、反转顺序，返回反转后的原数组。原数组被修改。" },
+                { key: "sort", label: "sort(a-b)", code: "ztr_arr.sort(function (a, b) { return a - b; })", desc: "对数组排序并返回原数组。数值排序必须传比较函数，否则会按字符串排序。原数组被修改。" }
+            ]},
+            { group: "三、返回新数组或新值（不修改原数组）", items: [
+                { key: "slice", label: "slice(1,3)", code: "ztr_arr.slice(1, 3)", desc: "截取索引 1 到 3（不含 3）之间的元素，返回新数组。原数组不变。" },
+                { key: "concat", label: "concat([88,99])", code: "ztr_arr.concat([88, 99])", desc: "把新数组拼接到原数组后面，返回拼接后的新数组。原数组不变。" },
+                { key: "map", label: "map(x*2)", code: "ztr_arr.map(function (x) { return x * 2; })", desc: "对每个元素执行函数，返回由结果组成的新数组（长度不变）。原数组不变。" },
+                { key: "filter", label: "filter(x>20)", code: "ztr_arr.filter(function (x) { return x > 20; })", desc: "筛选出满足条件的元素，返回新数组。原数组不变。" },
+                { key: "join", label: "join('-')", code: "ztr_arr.join('-')", desc: "把所有元素用 '-' 连接成一个字符串并返回。原数组不变。" }
+            ]},
+            { group: "四、查找与判断", items: [
+                { key: "indexOf", label: "indexOf(30)", code: "ztr_arr.indexOf(30)", desc: "查找 30 第一次出现的索引，找不到返回 -1。" },
+                { key: "includes", label: "includes(30)", code: "ztr_arr.includes(30)", desc: "判断数组是否包含 30，返回 true 或 false。" },
+                { key: "find", label: "find(x>20)", code: "ztr_arr.find(function (x) { return x > 20; })", desc: "返回第一个满足条件的元素，找不到返回 undefined。" },
+                { key: "some", label: "some(x>35)", code: "ztr_arr.some(function (x) { return x > 35; })", desc: "只要有一个元素满足条件就返回 true，否则返回 false。" },
+                { key: "every", label: "every(x>5)", code: "ztr_arr.every(function (x) { return x > 5; })", desc: "所有元素都满足条件才返回 true，否则返回 false。" }
+            ]},
+            { group: "五、遍历与汇总", items: [
+                { key: "forEach", label: "forEach", code: "ztr_arr.forEach(function (x) { console.log(x); })", desc: "逐个访问数组元素，没有返回值（undefined），一般用于执行副作用。" },
+                { key: "reduce", label: "reduce(累加)", code: "ztr_arr.reduce(function (a, b) { return a + b; })", desc: "从左到右把元素汇总成一个值（这里是累加），返回最终结果。" }
+            ]}
+        ];
+
+        // 执行某个方法的演示动画
+        function ztr_run(ztr_key) {
+            if (ztr_busy) { return; }
+            ztr_busy = true;
+            var ztr_m = ztr_methods[0]; // 占位，下面按 key 找
+            for (var ztr_g = 0; ztr_g < ztr_methods.length; ztr_g++) {
+                for (var ztr_i = 0; ztr_i < ztr_methods[ztr_g].items.length; ztr_i++) {
+                    if (ztr_methods[ztr_g].items[ztr_i].key === ztr_key) {
+                        ztr_m = ztr_methods[ztr_g].items[ztr_i];
+                    }
+                }
+            }
+            ztr_codeShow(ztr_m.code, ztr_m.desc);
+            ztr_switchDemo(ztr_key);
+        }
+
+        function ztr_switchDemo(ztr_key) {
+            switch (ztr_key) {
+                case "push":
+                    ztr_render(ztr_arr, { ghostTail: 66 });
+                    ztr_resultShow("一个新元素 66 正从右侧进入队列…");
+                    setTimeout(function () {
+                        var ztr_r = ztr_arr.push(66);
+                        ztr_render(ztr_arr, { inIdx: [ztr_arr.length - 1] });
+                        ztr_resultShow("push 完成，返回值：<b>" + ztr_r + "</b>（新数组长度）。<br>原数组被修改 → " + ztr_arrStr(ztr_arr));
+                        ztr_busy = false;
+                    }, 500);
+                    break;
+
+                case "pop":
+                    if (ztr_arr.length === 0) { ztr_emptyGuard(); break; }
+                    var ztr_li = ztr_arr.length - 1;
+                    ztr_render(ztr_arr, { outIdxR: [ztr_li] });
+                    ztr_resultShow("末尾元素 " + ztr_arr[ztr_li] + " 正在飞出…");
+                    setTimeout(function () {
+                        var ztr_r = ztr_arr.pop();
+                        ztr_render(ztr_arr);
+                        ztr_resultShow("pop 完成，返回值：<b>" + ztr_r + "</b>（被移除的元素）。<br>原数组被修改 → " + ztr_arrStr(ztr_arr));
+                        ztr_busy = false;
+                    }, 440);
+                    break;
+
+                case "unshift":
+                    ztr_render(ztr_arr, { ghostHead: 66 });
+                    ztr_resultShow("一个新元素 66 正从左侧进入队列…");
+                    setTimeout(function () {
+                        var ztr_r = ztr_arr.unshift(66);
+                        ztr_render(ztr_arr, { inIdx: [0] });
+                        ztr_resultShow("unshift 完成，返回值：<b>" + ztr_r + "</b>（新数组长度）。<br>原数组被修改 → " + ztr_arrStr(ztr_arr));
+                        ztr_busy = false;
+                    }, 500);
+                    break;
+
+                case "shift":
+                    if (ztr_arr.length === 0) { ztr_emptyGuard(); break; }
+                    ztr_render(ztr_arr, { outIdxL: [0] });
+                    ztr_resultShow("头部元素 " + ztr_arr[0] + " 正在飞出…");
+                    setTimeout(function () {
+                        var ztr_r = ztr_arr.shift();
+                        ztr_render(ztr_arr);
+                        ztr_resultShow("shift 完成，返回值：<b>" + ztr_r + "</b>（被移除的元素）。<br>原数组被修改 → " + ztr_arrStr(ztr_arr));
+                        ztr_busy = false;
+                    }, 440);
+                    break;
+
+                case "splice":
+                    ztr_seq([{ idx: [1], info: "定位索引 1 的元素，准备删除 1 个元素并插入 '★'…" }], function () {
+                        var ztr_r = ztr_arr.splice(1, 1, "★");
+                        ztr_render(ztr_arr, { inIdx: [1] });
+                        ztr_resultShow("splice 完成，返回值：被删除的元素 <b>[" + ztr_r + "]</b>。<br>原数组被修改 → " + ztr_arrStr(ztr_arr));
+                        ztr_busy = false;
+                    });
+                    break;
+
+                case "reverse":
+                    ztr_seq([{ idx: ztr_allIdx(), info: "把所有元素首尾对调…" }], function () {
+                        ztr_arr.reverse();
+                        ztr_render(ztr_arr, { inIdx: ztr_allIdx() });
+                        ztr_resultShow("reverse 完成，返回值就是被反转的原数组。<br>原数组被修改 → " + ztr_arrStr(ztr_arr));
+                        ztr_busy = false;
+                    });
+                    break;
+
+                case "sort":
+                    ztr_seq([{ idx: ztr_allIdx(), info: "按数值从小到大重新排队（比较函数 a - b）…" }], function () {
+                        ztr_arr.sort(function (a, b) { return a - b; });
+                        ztr_render(ztr_arr, { inIdx: ztr_allIdx() });
+                        ztr_resultShow("sort 完成，返回排序后的原数组。<br>原数组被修改 → " + ztr_arrStr(ztr_arr) + "<br>注意：不传比较函数时会按字符串（Unicode 码位）排序。");
+                        ztr_busy = false;
+                    });
+                    break;
+
+                case "slice":
+                    ztr_seq([{ idx: [1, 2], cls: "ztr_good", info: "截取索引 1 开始、到索引 3 之前（不含 3）的元素…" }], function () {
+                        var ztr_r = ztr_arr.slice(1, 3);
+                        ztr_render(ztr_arr);
+                        ztr_resultShow("slice 完成，返回<b>新</b>数组：", ztr_r);
+                        ztr_busy = false;
+                    });
+                    break;
+
+                case "concat":
+                    ztr_render(ztr_arr, { ghostTail: "88 · 99" });
+                    ztr_resultShow("把 [88, 99] 拼接到数组末尾…");
+                    setTimeout(function () {
+                        var ztr_r = ztr_arr.concat([88, 99]);
+                        ztr_resultShow("concat 完成，返回拼接后的<b>新</b>数组：", ztr_r);
+                        setTimeout(function () {
+                            ztr_render(ztr_arr);
+                            ztr_resultShow("注意：concat 不修改原数组，轨道已恢复 → " + ztr_arrStr(ztr_arr));
+                            ztr_busy = false;
+                        }, 900);
+                    }, 500);
+                    break;
+
+                case "map": {
+                    var ztr_mapSteps = [];
+                    for (var ztr_a = 0; ztr_a < ztr_arr.length; ztr_a++) {
+                        ztr_mapSteps.push({ idx: [ztr_a], info: "对元素 " + ztr_arr[ztr_a] + " 执行 ×2 → <b>" + (ztr_arr[ztr_a] * 2) + "</b>" });
+                    }
+                    ztr_seq(ztr_mapSteps, function () {
+                        var ztr_r = ztr_arr.map(function (x) { return x * 2; });
+                        ztr_resultShow("map 完成，返回由每个元素映射结果组成的<b>新</b>数组：", ztr_r);
+                        ztr_busy = false;
+                    });
+                    break;
+                }
+
+                case "filter": {
+                    var ztr_fSteps = [];
+                    for (var ztr_b = 0; ztr_b < ztr_arr.length; ztr_b++) {
+                        var ztr_okB = ztr_arr[ztr_b] > 20;
+                        ztr_fSteps.push({
+                            idx: [ztr_b],
+                            cls: ztr_okB ? "ztr_good" : "ztr_bad",
+                            info: "元素 " + ztr_arr[ztr_b] + (ztr_okB ? " 满足 &gt; 20，<b>保留</b>" : " 不满足 &gt; 20，<b>丢弃</b>")
+                        });
+                    }
+                    ztr_seq(ztr_fSteps, function () {
+                        var ztr_r = ztr_arr.filter(function (x) { return x > 20; });
+                        ztr_resultShow("filter 完成，保留满足条件的元素组成<b>新</b>数组：", ztr_r);
+                        ztr_busy = false;
+                    });
+                    break;
+                }
+
+                case "join": {
+                    var ztr_jSteps = [], ztr_s = "";
+                    for (var ztr_c = 0; ztr_c < ztr_arr.length; ztr_c++) {
+                        if (ztr_c > 0) { ztr_s += "-"; }
+                        ztr_s += ztr_arr[ztr_c];
+                        ztr_jSteps.push({ idx: [ztr_c], info: "累积连接 → <b>\"" + ztr_s + "\"</b>" });
+                    }
+                    ztr_seq(ztr_jSteps, function () {
+                        var ztr_r = ztr_arr.join("-");
+                        ztr_resultShow("join 完成，返回字符串：<b>\"" + ztr_r + "\"</b>（原数组不变）");
+                        ztr_busy = false;
+                    });
+                    break;
+                }
+
+                case "indexOf": {
+                    var ztr_iSteps = [], ztr_iFound = -1;
+                    for (var ztr_d = 0; ztr_d < ztr_arr.length; ztr_d++) {
+                        var ztr_okD = ztr_arr[ztr_d] === 30;
+                        if (ztr_okD) { ztr_iFound = ztr_d; }
+                        ztr_iSteps.push({ idx: [ztr_d], cls: ztr_okD ? "ztr_good" : "ztr_bad", info: "arr[" + ztr_d + "] = " + ztr_arr[ztr_d] + (ztr_okD ? "，<b>命中 30！</b>" : "，不是 30，继续查找") });
+                        if (ztr_okD) { break; }
+                    }
+                    ztr_seq(ztr_iSteps, function () {
+                        var ztr_r = ztr_arr.indexOf(30);
+                        ztr_resultShow(ztr_r === -1
+                            ? "indexOf 完成，数组中没有 30，返回值：<b>-1</b>"
+                            : "indexOf 完成，返回值：<b>" + ztr_r + "</b>（30 所在的索引）");
+                        ztr_busy = false;
+                    });
+                    break;
+                }
+
+                case "includes": {
+                    var ztr_nSteps = [], ztr_nFound = false;
+                    for (var ztr_e = 0; ztr_e < ztr_arr.length; ztr_e++) {
+                        var ztr_okE = ztr_arr[ztr_e] === 30;
+                        if (ztr_okE) { ztr_nFound = true; }
+                        ztr_nSteps.push({ idx: [ztr_e], cls: ztr_okE ? "ztr_good" : "ztr_bad", info: "arr[" + ztr_e + "] = " + ztr_arr[ztr_e] + (ztr_okE ? "，<b>找到了！</b>" : "，继续检查") });
+                        if (ztr_okE) { break; }
+                    }
+                    ztr_seq(ztr_nSteps, function () {
+                        var ztr_r = ztr_arr.includes(30);
+                        ztr_resultShow("includes 完成，返回值：<b>" + ztr_r + "</b>（数组" + (ztr_r ? "包含" : "不包含") + " 30）");
+                        ztr_busy = false;
+                    });
+                    break;
+                }
+
+                case "find": {
+                    var ztr_dSteps = [], ztr_dFound = false;
+                    for (var ztr_f = 0; ztr_f < ztr_arr.length; ztr_f++) {
+                        var ztr_okF = ztr_arr[ztr_f] > 20;
+                        if (ztr_okF) { ztr_dFound = true; }
+                        ztr_dSteps.push({ idx: [ztr_f], cls: ztr_okF ? "ztr_good" : "ztr_bad", info: "arr[" + ztr_f + "] = " + ztr_arr[ztr_f] + (ztr_okF ? "，满足 &gt; 20，<b>返回它</b>" : "，不满足，继续找") });
+                        if (ztr_okF) { break; }
+                    }
+                    ztr_seq(ztr_dSteps, function () {
+                        var ztr_r = ztr_arr.find(function (x) { return x > 20; });
+                        ztr_resultShow(ztr_dFound
+                            ? "find 完成，返回第一个满足条件的元素：<b>" + ztr_r + "</b>"
+                            : "find 完成，没有元素满足条件，返回值：<b>undefined</b>");
+                        ztr_busy = false;
+                    });
+                    break;
+                }
+
+                case "some": {
+                    var ztr_sSteps = [], ztr_sFound = false;
+                    for (var ztr_g2 = 0; ztr_g2 < ztr_arr.length; ztr_g2++) {
+                        var ztr_okG = ztr_arr[ztr_g2] > 35;
+                        if (ztr_okG) { ztr_sFound = true; }
+                        ztr_sSteps.push({ idx: [ztr_g2], cls: ztr_okG ? "ztr_good" : "ztr_bad", info: "arr[" + ztr_g2 + "] = " + ztr_arr[ztr_g2] + (ztr_okG ? "，&gt; 35 成立，<b>返回 true</b>" : "，不满足，继续检查") });
+                        if (ztr_okG) { break; }
+                    }
+                    ztr_seq(ztr_sSteps, function () {
+                        var ztr_r = ztr_arr.some(function (x) { return x > 35; });
+                        ztr_resultShow("some 完成，返回值：<b>" + ztr_r + "</b>" + (ztr_sFound ? "（存在满足条件的元素）" : "（没有任何元素满足条件）"));
+                        ztr_busy = false;
+                    });
+                    break;
+                }
+
+                case "every": {
+                    var ztr_vSteps = [], ztr_vAll = true;
+                    for (var ztr_h = 0; ztr_h < ztr_arr.length; ztr_h++) {
+                        var ztr_okH = ztr_arr[ztr_h] > 5;
+                        if (!ztr_okH) { ztr_vAll = false; }
+                        ztr_vSteps.push({ idx: [ztr_h], cls: ztr_okH ? "ztr_good" : "ztr_bad", info: "arr[" + ztr_h + "] = " + ztr_arr[ztr_h] + (ztr_okH ? "，&gt; 5 成立，继续检查" : "，不成立，<b>返回 false</b>") });
+                        if (!ztr_okH) { break; }
+                    }
+                    ztr_seq(ztr_vSteps, function () {
+                        var ztr_r = ztr_arr.every(function (x) { return x > 5; });
+                        ztr_resultShow("every 完成，返回值：<b>" + ztr_r + "</b>" + (ztr_vAll ? "（所有元素都满足条件）" : "（有不满足条件的元素）"));
+                        ztr_busy = false;
+                    });
+                    break;
+                }
+
+                case "forEach": {
+                    var ztr_eSteps = [], ztr_eCnt = 0;
+                    for (var ztr_k = 0; ztr_k < ztr_arr.length; ztr_k++) {
+                        ztr_eCnt++;
+                        ztr_eSteps.push({ idx: [ztr_k], info: "第 " + ztr_eCnt + " 次访问：arr[" + ztr_k + "] = <b>" + ztr_arr[ztr_k] + "</b>" });
+                    }
+                    ztr_seq(ztr_eSteps, function () {
+                        ztr_resultShow("forEach 遍历结束，共访问 " + ztr_arr.length + " 次。它<b>没有返回值</b>（undefined）。");
+                        ztr_busy = false;
+                    });
+                    break;
+                }
+
+                case "reduce": {
+                    if (ztr_arr.length === 0) { ztr_emptyGuard(); break; }
+                    var ztr_rSteps = [], ztr_acc = ztr_arr[0];
+                    ztr_rSteps.push({ idx: [0], info: "初始累加值 a = <b>" + ztr_arr[0] + "</b>" });
+                    for (var ztr_l = 1; ztr_l < ztr_arr.length; ztr_l++) {
+                        ztr_rSteps.push({ idx: [ztr_l], info: "a = " + ztr_acc + " + " + ztr_arr[ztr_l] + " = <b>" + (ztr_acc + ztr_arr[ztr_l]) + "</b>" });
+                        ztr_acc = ztr_acc + ztr_arr[ztr_l];
+                    }
+                    ztr_seq(ztr_rSteps, function () {
+                        var ztr_r = ztr_arr.reduce(function (a, b) { return a + b; });
+                        ztr_resultShow("reduce 完成，返回值：<b>" + ztr_r + "</b>（所有元素累加的结果）");
+                        ztr_busy = false;
+                    });
+                    break;
+                }
+
+                default:
+                    ztr_busy = false;
+            }
+        }
+
+        // 数组为空时的提示
+        function ztr_emptyGuard() {
+            ztr_resultShow("数组已经空了，请点击右上方「重置数组」后继续演示。");
+            ztr_busy = false;
+        }
+
+        // 生成方法按钮
+        var ztr_btnarea = document.getElementById("ztr_btnarea");
+        for (var ztr_gi = 0; ztr_gi < ztr_methods.length; ztr_gi++) {
+            var ztr_groupDiv = document.createElement("div");
+            var ztr_h = document.createElement("div");
+            ztr_h.className = "ztr_group-title";
+            ztr_h.textContent = ztr_methods[ztr_gi].group;
+            ztr_groupDiv.appendChild(ztr_h);
+            var ztr_row = document.createElement("div");
+            ztr_row.className = "ztr_btns";
+            for (var ztr_mi = 0; ztr_mi < ztr_methods[ztr_gi].items.length; ztr_mi++) {
+                (function (ztr_item) {
+                    var ztr_btn = document.createElement("button");
+                    ztr_btn.type = "button";
+                    ztr_btn.className = "ztr_btn";
+                    ztr_btn.textContent = ztr_item.label;
+                    ztr_btn.onclick = function () {
+                        ztr_btn.disabled = true;
+                        ztr_run(ztr_item.key);
+                        var ztr_timer = setInterval(function () {
+                            if (!ztr_busy) {
+                                ztr_btn.disabled = false;
+                                clearInterval(ztr_timer);
+                            }
+                        }, 120);
+                    };
+                    ztr_row.appendChild(ztr_btn);
+                })(ztr_methods[ztr_gi].items[ztr_mi]);
+            }
+            ztr_groupDiv.appendChild(ztr_row);
+            ztr_btnarea.appendChild(ztr_groupDiv);
+        }
+
+        // 重置数组
+        document.getElementById("ztr_reset").onclick = function () {
+            ztr_arr = [10, 20, 30, 40];
+            ztr_render(ztr_arr);
+            ztr_resultShow("数组已重置为 [10, 20, 30, 40]，可以继续演示。");
+        };
+
+        // 初始渲染
+        ztr_render(ztr_arr);
+        ztr_resultShow("点击下方方法按钮，看数组发生什么变化…");
+
+        // 使用 fetch 从服务器获取首页数据并解析
+        fetch("./index.html")
+            .then(function (ztr_res) { return ztr_res.text(); })
+            .then(function (ztr_txt) {
+                var ztr_doc = new DOMParser().parseFromString(ztr_txt, "text/html");
+                var ztr_count = ztr_doc.querySelectorAll(".ztr_project-card").length;
+                document.getElementById("ztr_fetchinfo").textContent =
+                    "fetch 状态：已成功从服务器获取 index.html 数据，解析出 " + ztr_count + " 个练习页面。";
+            })
+            .catch(function () {
+                document.getElementById("ztr_fetchinfo").textContent =
+                    "fetch 状态：当前通过 file:// 协议打开，浏览器阻止了本地请求；请使用本地服务器（如 VS Code Live Server）体验 fetch 功能。";
+            });
+    </script>
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<!-- 姓名：张天润，日期：汽车上市信息选项卡 -->
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>汽车上市信息 - 选项卡 - 张天润</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 40px 16px;
+            background: #000;
+            font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* 选项卡卡片外壳：白色边框 + 浅蓝内容底 */
+        .ztr_card {
+            max-width: 620px;
+            margin: 0 auto;
+            padding: 10px;
+            background: #fff;
+            border: 1px solid #d5e7f5;
+        }
+
+        /* 选项卡头部 */
+        .ztr_tabs {
+            display: flex;
+            background: #e8f2fa;
+            border-bottom: 1px solid #cfe3f2;
+        }
+
+        .ztr_tab {
+            padding: 13px 30px;
+            border: none;
+            background: transparent;
+            color: #2b6ca3;
+            font-family: inherit;
+            font-size: 17px;
+            cursor: pointer;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        /* 选中的选项卡：白底、深蓝加粗 */
+        .ztr_tab.ztr_on {
+            background: #fff;
+            color: #1f4e79;
+            font-weight: 700;
+        }
+
+        .ztr_tab:not(.ztr_on):hover {
+            color: #1f4e79;
+        }
+
+        /* 内容面板 */
+        .ztr_panel {
+            background: #fff;
+            padding: 14px 22px 20px;
+        }
+
+        .ztr_table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 15px;
+        }
+
+        .ztr_table th {
+            padding: 12px 4px;
+            color: #1f4e79;
+            font-size: 16px;
+            text-align: left;
+        }
+
+        .ztr_table td {
+            padding: 13px 4px;
+            border-bottom: 1px dashed #c9d6e2;
+        }
+
+        .ztr_table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .ztr_col-time {
+            width: 128px;
+            color: #555;
+        }
+
+        .ztr_col-name {
+            color: #1f4e79;
+        }
+
+        .ztr_col-price {
+            color: #1f4e79;
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .ztr_fetchinfo {
+            max-width: 620px;
+            margin: 18px auto 0;
+            color: #9aa4ad;
+            font-size: 13px;
+        }
+
+        .ztr_back {
+            display: block;
+            max-width: 620px;
+            margin: 10px auto 0;
+            color: #7db4d8;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .ztr_back:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="ztr_card">
+        <div class="ztr_tabs" id="ztr_tabs"></div>
+        <div class="ztr_panel" id="ztr_panel"></div>
+    </div>
+
+    <div class="ztr_fetchinfo" id="ztr_fetchinfo">正在通过 fetch 获取服务器数据…</div>
+
+    <a class="ztr_back" href="./index.html">← 返回作品目录</a>
+
+    <script>
+        // 选项卡数据：两组车型信息
+        var ztr_data = [
+            {
+                name: "最新上市",
+                rows: [
+                    { time: "12月13日", name: "沃尔沃S60L", price: "26.99-38.49" },
+                    { time: "12月12日", name: "Jeep牧马人龙腾典藏", price: "47.99-59.99" },
+                    { time: "12月10日", name: "一汽大众高尔夫7", price: "11.89-18.29" },
+                    { time: "12月6日", name: "2014款古思特", price: "419.0-666.0" },
+                    { time: "12月5日", name: "起亚新款K5", price: "15.98-25.18" },
+                    { time: "12月5日", name: "2014款奥德赛", price: "22.98-28.68" }
+                ]
+            },
+            {
+                name: "即将上市",
+                rows: [
+                    { time: "12月20日", name: "丰田全新皇冠", price: "25.48-38.58" },
+                    { time: "12月26日", name: "奥迪A3 Limousine", price: "18.49-28.99" },
+                    { time: "12月28日", name: "福特新款锐界", price: "24.98-36.98" },
+                    { time: "12月30日", name: "别克昂科威", price: "21.99-34.99" },
+                    { time: "1月6日", name: "2015款途观", price: "19.98-31.58" },
+                    { time: "1月8日", name: "纳智捷新大7 SUV", price: "19.98-27.98" }
+                ]
+            }
+        ];
+
+        var ztr_tabsBox = document.getElementById("ztr_tabs");
+        var ztr_panelBox = document.getElementById("ztr_panel");
+        var ztr_current = 0;
+
+        // 渲染选项卡头部
+        function ztr_renderTabs() {
+            var ztr_html = "";
+            for (var ztr_i = 0; ztr_i < ztr_data.length; ztr_i++) {
+                ztr_html += "<button type='button' class='ztr_tab" + (ztr_i === ztr_current ? " ztr_on" : "") +
+                    "' data-ztr-index='" + ztr_i + "'>" + ztr_data[ztr_i].name + "</button>";
+            }
+            ztr_tabsBox.innerHTML = ztr_html;
+            var ztr_btns = ztr_tabsBox.querySelectorAll(".ztr_tab");
+            for (var ztr_j = 0; ztr_j < ztr_btns.length; ztr_j++) {
+                ztr_btns[ztr_j].onclick = function () {
+                    var ztr_idx = Number(this.getAttribute("data-ztr-index"));
+                    if (ztr_idx !== ztr_current) {
+                        ztr_current = ztr_idx;
+                        ztr_renderTabs();
+                        ztr_renderPanel();
+                    }
+                };
+            }
+        }
+
+        // 渲染当前选项卡对应的数据表格
+        function ztr_renderPanel() {
+            var ztr_rows = ztr_data[ztr_current].rows;
+            var ztr_html = "<table class='ztr_table'>" +
+                "<thead><tr>" +
+                "<th class='ztr_col-time'>上市时间</th>" +
+                "<th>品牌/车型</th>" +
+                "<th class='ztr_col-price'>售价（万元）</th>" +
+                "</tr></thead><tbody>";
+            for (var ztr_i = 0; ztr_i < ztr_rows.length; ztr_i++) {
+                ztr_html += "<tr>" +
+                    "<td class='ztr_col-time'>" + ztr_rows[ztr_i].time + "</td>" +
+                    "<td class='ztr_col-name'>" + ztr_rows[ztr_i].name + "</td>" +
+                    "<td class='ztr_col-price'>" + ztr_rows[ztr_i].price + "</td>" +
+                    "</tr>";
+            }
+            ztr_html += "</tbody></table>";
+            ztr_panelBox.innerHTML = ztr_html;
+        }
+
+        ztr_renderTabs();
+        ztr_renderPanel();
+
+        // 使用 fetch 从服务器获取首页数据并解析
+        fetch("./index.html")
+            .then(function (ztr_res) { return ztr_res.text(); })
+            .then(function (ztr_txt) {
+                var ztr_doc = new DOMParser().parseFromString(ztr_txt, "text/html");
+                var ztr_count = ztr_doc.querySelectorAll(".ztr_project-card").length;
+                document.getElementById("ztr_fetchinfo").textContent =
+                    "张天润 · fetch 状态：已成功从服务器获取 index.html 数据，解析出 " + ztr_count + " 个练习页面。";
+            })
+            .catch(function () {
+                document.getElementById("ztr_fetchinfo").textContent =
+                    "张天润 · fetch 状态：当前通过 file:// 协议打开，浏览器阻止了本地请求；请使用本地服务器（如 VS Code Live Server）体验 fetch 功能。";
+            });
+    </script>
+</body>
+</html>

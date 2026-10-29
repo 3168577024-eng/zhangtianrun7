@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<!-- 姓名：张天润，日期：热门频道标签导航页 -->
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>热门频道 - 张天润</title>
+    <link rel="stylesheet" href="./font/font_1/iconfont.css">
+    <style>
+        body {
+            margin: 0;
+            background: #fff;
+            font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+            color: #18191c;
+            line-height: 1.6;
+        }
+
+        .ztr_wrap {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 26px 20px 20px;
+        }
+
+        /* 频道行：左侧标签 + 右侧入口 */
+        .ztr_row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .ztr_row + .ztr_row {
+            margin-top: 14px;
+        }
+
+        .ztr_tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 10px;
+        }
+
+        .ztr_tag {
+            padding: 7px 21px;
+            border-radius: 6px;
+            background: #f1f2f3;
+            color: #61666d;
+            font-size: 14px;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .ztr_tag:hover {
+            background: #e3e5e7;
+            color: #00aee5;
+        }
+
+        .ztr_more-arrow {
+            display: inline-block;
+            margin-left: 6px;
+            width: 0;
+            height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 5px solid #9499a0;
+            vertical-align: middle;
+        }
+
+        /* 右侧带图标的快捷入口 */
+        .ztr_entries {
+            display: flex;
+            align-items: center;
+            gap: 26px;
+            flex-shrink: 0;
+        }
+
+        .ztr_entry {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #61666d;
+            font-size: 14px;
+            text-decoration: none;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .ztr_entry:hover {
+            color: #00aee5;
+        }
+
+        .ztr_entry .iconfont {
+            font-size: 18px;
+        }
+
+        /* 底部露出的视频封面条 */
+        .ztr_video-strip {
+            display: flex;
+            gap: 10px;
+            margin-top: 22px;
+            height: 22px;
+            overflow: hidden;
+        }
+
+        .ztr_video-strip img {
+            display: block;
+            width: 220px;
+            height: 120px;
+            object-fit: cover;
+            object-position: top;
+            border-radius: 6px 6px 0 0;
+            flex-shrink: 0;
+        }
+
+        .ztr_block-gray {
+            flex: 1;
+            background: #4a4f55;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .ztr_block-red {
+            width: 160px;
+            background: #e0393e;
+            border-radius: 6px 6px 0 0;
+            flex-shrink: 0;
+        }
+
+        .ztr_fetchinfo {
+            margin-top: 22px;
+            padding-top: 14px;
+            border-top: 1px solid #f1f2f3;
+            color: #9499a0;
+            font-size: 13px;
+        }
+
+        .ztr_back {
+            display: inline-block;
+            margin-top: 10px;
+            color: #00aee5;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .ztr_back:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 900px) {
+            .ztr_row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .ztr_entries {
+                gap: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="ztr_wrap">
+        <!-- 第一行：番剧到体育运动 + 右侧专栏/活动/社区中心 -->
+        <div class="ztr_row">
+            <div class="ztr_tags" id="ztr_tags_row1"></div>
+            <div class="ztr_entries">
+                <a class="ztr_entry"><span class="iconfont icon-jiaochengziliao"></span>专栏</a>
+                <a class="ztr_entry"><span class="iconfont icon-huodongyouli"></span>活动</a>
+                <a class="ztr_entry"><span class="iconfont icon-fuwuzhongxin"></span>社区中心</a>
+            </div>
+        </div>
+
+        <!-- 第二行：电影到更多 + 右侧直播/课堂/新歌热榜 -->
+        <div class="ztr_row">
+            <div class="ztr_tags" id="ztr_tags_row2"></div>
+            <div class="ztr_entries">
+                <a class="ztr_entry"><span class="iconfont icon-redianhuodong"></span>直播</a>
+                <a class="ztr_entry"><span class="iconfont icon-gonglvezhinan"></span>课堂</a>
+                <a class="ztr_entry"><span class="iconfont icon-wodejifen"></span>新歌热榜</a>
+            </div>
+        </div>
+
+        <!-- 底部露出的视频封面 -->
+        <div class="ztr_video-strip">
+            <div class="ztr_block-gray"></div>
+            <img src="./img/6311d91963929c2e1578620659212d57.jpg" alt="推荐视频封面一">
+            <img src="./img/685f0a52b56d40ed8fed72c50a6bc473.jpg" alt="推荐视频封面二">
+            <div class="ztr_block-red"></div>
+            <img src="./img/a336626d6a8a1880946b2f6b7f96247c.jpg" alt="推荐视频封面三">
+            <div class="ztr_block-gray"></div>
+        </div>
+
+        <div class="ztr_fetchinfo" id="ztr_fetchinfo">正在通过 fetch 获取服务器数据…</div>
+
+        <a class="ztr_back" href="./index.html">← 返回作品目录</a>
+    </div>
+
+    <script>
+        // 频道标签数据
+        var ztr_row1 = ["番剧", "国创", "综艺", "动画", "鬼畜", "舞蹈", "娱乐", "科技数码", "美食", "汽车", "体育运动"];
+        var ztr_row2 = ["电影", "电视剧", "纪录片", "游戏", "音乐", "影视", "知识", "资讯", "小剧场", "时尚美妆", "更多"];
+
+        // 渲染某一行的标签
+        function ztr_renderTags(ztr_id, ztr_list, ztr_isLast) {
+            var ztr_box = document.getElementById(ztr_id);
+            var ztr_html = "";
+            for (var ztr_i = 0; ztr_i < ztr_list.length; ztr_i++) {
+                ztr_html += "<span class='ztr_tag'>" + ztr_list[ztr_i];
+                // 最后一项"更多"追加下拉箭头
+                if (ztr_isLast && ztr_i === ztr_list.length - 1) {
+                    ztr_html += "<span class='ztr_more-arrow'></span>";
+                }
+                ztr_html += "</span>";
+            }
+            ztr_box.innerHTML = ztr_html;
+        }
+
+        ztr_renderTags("ztr_tags_row1", ztr_row1, false);
+        ztr_renderTags("ztr_tags_row2", ztr_row2, true);
+
+        // 使用 fetch 从服务器获取首页数据并解析
+        fetch("./index.html")
+            .then(function (ztr_res) { return ztr_res.text(); })
+            .then(function (ztr_txt) {
+                var ztr_doc = new DOMParser().parseFromString(ztr_txt, "text/html");
+                var ztr_count = ztr_doc.querySelectorAll(".ztr_project-card").length;
+                document.getElementById("ztr_fetchinfo").textContent =
+                    "张天润 · fetch 状态：已成功从服务器获取 index.html 数据，解析出 " + ztr_count + " 个练习页面。";
+            })
+            .catch(function () {
+                document.getElementById("ztr_fetchinfo").textContent =
+                    "张天润 · fetch 状态：当前通过 file:// 协议打开，浏览器阻止了本地请求；请使用本地服务器（如 VS Code Live Server）体验 fetch 功能。";
+            });
+    </script>
+</body>
+</html>
