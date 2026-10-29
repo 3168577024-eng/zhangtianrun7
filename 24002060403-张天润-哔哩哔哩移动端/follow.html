@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<!--
+  《高级网页设计 I》实验作品：仿哔哩哔哩移动端「关注」页
+  学号：24002060403
+  姓名：张天润
+  姓名缩写：ztr（应用容器使用 .ztr-app 类名标识）
+  说明：全局 CSS 统一写在 :root 变量与通配选择器中，全部使用 class 选择器，未使用 id 选择器
+-->
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="author" content="张天润 24002060403">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <title>关注 - 哔哩哔哩移动端</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="assets/iconfont/iconfont.css">
+</head>
+<body>
+
+  <!-- SVG 图标雪碧图：底部导航使用的 4 个图标 -->
+  <svg class="svg-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><symbol id="icon-fengche" viewBox="0 0 1024 1024"><path d="M541.87 55.47l-0.06 296.95c44.59-51.23 110.27-83.62 183.53-83.62 134.32 0 243.2 108.88 243.2 243.2v29.87l-296.95-0.06c51.23 44.59 83.62 110.27 83.62 183.53 0 134.32-108.88 243.2-243.2 243.2h-29.87l0.02-296.91c-44.59 51.21-110.26 83.58-183.49 83.58-134.32 0-243.2-108.88-243.2-243.2v-29.87l296.95 0.06c-51.23-44.59-83.62-110.27-83.62-183.53 0-134.32 108.88-243.2 243.2-243.2h29.87z m0 488.83v362.03l5-0.83c81.83-15.74 144.32-85.85 148.39-171.27l0.21-8.89c0-89.41-63.95-163.87-148.6-180.16l-5-0.88z m-62.17-2.43H117.67l0.83 5c15.74 81.83 85.85 144.32 171.27 148.39l8.89 0.21c89.41 0 163.87-63.95 180.16-148.6l0.88-5z m245.63-213.34c-89.41 0-163.87 63.95-180.16 148.6l-0.88 5h362.03l-0.83-5c-15.74-81.83-85.85-144.32-171.27-148.39l-8.89-0.21z m-243.2-210.9l-5 0.88c-84.65 16.28-148.6 90.75-148.6 180.16l0.21 8.89c4.07 85.42 66.56 155.53 148.39 171.27l5 0.83V117.63z"  ></path></symbol><symbol id="icon-bilibili" viewBox="0 0 1024 1024"><path d="M760.021333 198.528h36.437334c64.426667 2.304 118.144 24.661333 160.981333 67.157333 42.837333 42.453333 65.024 95.957333 66.56 160.426667v314.026667c-1.536 64.426667-23.722667 118.144-66.56 160.981333s-96.512 65.024-160.981333 66.56H227.541333c-64.426667-1.536-118.144-23.722667-160.981333-66.56S1.536 804.608 0 740.138667v-314.026667c1.536-64.469333 23.722667-117.973333 66.56-160.426667 42.837333-42.496 96.512-64.853333 160.981333-67.157333h33.024l-50.090666-47.786667a52.650667 52.650667 0 0 1-15.914667-38.656c0-15.189333 5.290667-28.074667 15.914667-38.698666l1.152-1.152c11.392-10.624 24.448-15.914667 39.253333-15.914667 14.805333 0 27.861333 5.290667 39.253333 15.914667L411.861333 189.44c3.029333 3.029333 5.717333 6.058667 7.978667 9.088h182.058667a35.669333 35.669333 0 0 1 6.826666-9.088l121.728-117.205333c11.392-10.624 24.448-15.914667 39.253334-15.914667 14.805333 0 28.245333 6.442667 39.637333 17.066667 11.392 10.624 16.682667 23.509333 16.682667 38.698666 0 15.146667-5.290667 28.032-15.914667 38.656zM227.541333 308.906667c-31.829333 0.768-58.581333 11.776-80.213333 32.981333-21.589333 21.248-32.810667 48.213333-33.536 80.810667v320.853333c0.725333 32.597333 11.946667 59.52 33.536 80.768 21.632 21.248 48.384 32.256 80.213333 32.981333h568.917334c31.829333-0.725333 58.581333-11.733333 80.213333-32.981333 21.589333-21.248 32.810667-48.170667 33.536-80.768v-320.853333c-0.725333-32.64-11.946667-59.562667-33.536-80.810667-21.632-21.205333-48.384-32.213333-80.213333-32.981333zM341.333333 473.898667c15.914667 0 29.184 5.290667 39.808 15.914666 10.666667 10.624 16.341333 24.277333 17.066667 40.96v50.048c-0.725333 16.682667-6.4 30.336-17.066667 40.96-10.624 10.666667-23.893333 15.957333-39.808 15.957334s-29.184-5.333333-39.808-15.957334c-10.666667-10.624-16.341333-24.277333-17.066666-40.96V530.773333c0-15.914667 5.504-29.397333 16.469333-40.405333 11.008-10.965333 24.490667-16.469333 40.405333-16.469333z m341.333334 0c15.914667 0 29.184 5.290667 39.808 15.914666 10.666667 10.624 16.341333 24.277333 17.066666 40.96v50.048c-0.725333 16.682667-6.4 30.336-17.066666 40.96-10.624 10.666667-23.893333 15.957333-39.808 15.957334s-29.184-5.333333-39.808-15.957334c-10.666667-10.624-16.341333-24.277333-17.066667-40.96V530.773333c0.725333-16.682667 6.4-30.336 17.066667-40.96 10.624-10.624 23.893333-15.914667 39.808-15.914666z"  ></path></symbol><symbol id="icon-shouye-zhihui" viewBox="0 0 1024 1024"><path d="M468.906667 57.941333a68.394667 68.394667 0 0 1 86.165333 0l399.936 322.624c30.058667 24.234667 35.136 68.693333 11.328 99.328a69.269333 69.269333 0 0 1-37.802667 24.768l-3.712 0.810667 0.021334 361.514667c0 59.370667-44.48 108.48-102.528 113.877333l-4.736 0.362667-4.949334 0.106666H211.370667c-59.84 0-109.056-47.808-112.106667-109.312l-0.106667-5.034666-0.021333-361.514667-2.453333-0.490667c-29.696-6.848-52.16-33.088-53.909334-64.96L42.666667 436.010667c0-21.610667 9.685333-42.026667 26.325333-55.466667z m46.72 50.026667a5.76 5.76 0 0 0-7.253334 0L108.864 431.146667a6.058667 6.058667 0 0 0-2.218667 4.693333c0 3.328 2.624 6.016 5.866667 6.016h18.816c17.536-0.021333 31.744 14.506667 31.744 32.405333v392.533334l0.064 3.392C164.437333 896.533333 185.792 917.333333 211.712 917.333333h599.765333l3.328-0.085333c25.770667-1.322667 46.101333-23.146667 46.101334-49.621333V474.282667c0-17.92 14.208-32.426667 31.744-32.426667h18.816c1.792 0 3.477333-0.832 4.608-2.261333a6.101333 6.101333 0 0 0-0.96-8.426667z m138.133333 564.693333a32 32 0 0 1-3.754667 45.098667C610.858667 750.890667 568.106667 768 522.666667 768c-45.44 0-88.192-17.109333-127.36-50.24a32 32 0 1 1 41.386666-48.853333C464.704 692.650667 493.056 704 522.666667 704c29.589333 0 57.941333-11.349333 85.973333-35.093333a32 32 0 0 1 45.12 3.754666z" fill="#111111" ></path></symbol><symbol id="icon-vip" viewBox="0 0 1024 1024"><path d="M295.424 183.855C315.439 85.644 399.36 11.636 500.364 11.636c101.003 0 184.925 74.008 204.94 172.219h73.262a49.897 49.897 0 0 1 1.257 0c78.894 0 144.896 59.857 151.877 137.681l47.337 479.185c9.17 102.354-66.932 192.559-169.751 201.589-5.493 0.465-11.031 0.745-16.524 0.745H231.238c-103.191 0-187.02-83.13-187.02-185.856 0-5.493 0.233-10.985 0.791-16.943l47.244-478.255a152.157 152.157 0 0 1 151.924-138.146h51.247z m71.96 0h265.96c-18.106-59.579-71.028-102.4-132.98-102.4-61.952 0-114.875 42.821-132.98 102.4zM290.908 281.6h-46.732c-28.485 0-52.084 21.41-54.597 49.57l-47.29 478.255a86.947 86.947 0 0 0-0.326 7.774c0 48.546 39.89 88.11 89.274 88.11h561.524c2.653 0 5.306-0.14 7.913-0.372 49.198-4.329 85.318-47.15 81.036-95.046l-47.337-479.139a54.412 54.412 0 0 0-55.808-49.152h-68.748v20.945a34.91 34.91 0 1 1-69.818 0V281.6H360.727v20.945a34.91 34.91 0 0 1-69.818 0V281.6zM512 379.904l48.92-7.54v53.9l160.535-38.075v403.084H674.07L660.9 440.133l-125.44 60.23H512V379.905z m55.668 155.369h64.326l-19.177 83.968h38.82l-53.295 102.214v-76.568h-39.797l9.123-109.614z m-273.64-127.674l183.11-35.235 11.59 256H438.55V445.347l-109.707 24.39V588.52h-49.571l14.755-180.922z m67.956 127.674h33.606l14.94 116.363L512 700.23 495.197 768l-99.607-67.77V768h-46.5l12.894-232.727z" fill="#656A6E" ></path></symbol></svg>
+
+  <div class="app ztr-app">
+
+    <!-- 顶部标题栏：标题居中 + 右侧编辑按钮 -->
+    <header class="follow-header">
+      <h1 class="follow-header__title">关注</h1>
+      <button class="follow-header__edit" type="button" aria-label="编辑分组">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 20h4l10-10-4-4L4 16v4Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M13.5 6.5 17.5 10.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+        </svg>
+      </button>
+    </header>
+
+    <!-- 分类标签：全部 / 视频（等分，当前项粉色 + 下划线） -->
+    <nav class="follow-tabs" aria-label="关注分类">
+      <a class="follow-tabs__item follow-tabs__item--active" href="#">全部</a>
+      <a class="follow-tabs__item" href="#">视频</a>
+    </nav>
+
+    <main class="follow-main">
+
+      <!-- 最常访问：两行头像，横向滚动 -->
+      <section class="visit" aria-label="最常访问">
+        <div class="visit__header">
+          <h2 class="visit__title">最常访问</h2>
+          <a class="visit__more" href="#">4人直播中 · 更多 ›</a>
+        </div>
+        <ul class="visit__grid">
+          <li class="visit-item">
+            <span class="visit-item__avatar"><img src="assets/avatar1.svg" alt="头像"></span>
+            <span class="visit-item__name">记录生活的蛋黄派</span>
+          </li>
+          <li class="visit-item">
+            <span class="visit-item__avatar"><img src="assets/avatar2.svg" alt="头像"></span>
+            <span class="visit-item__name">逗比的雀巢</span>
+          </li>
+          <li class="visit-item">
+            <span class="visit-item__avatar"><img src="assets/avatar-girl2.jpg" alt="头像"></span>
+            <span class="visit-item__name">后宫补番</span>
+          </li>
+          <li class="visit-item">
+            <span class="visit-item__avatar"><img src="assets/kobe.jpg" alt="头像"></span>
+            <span class="visit-item__name">涩会永子哥</span>
+          </li>
+          <li class="visit-item">
+            <span class="visit-item__avatar"><img src="assets/avatar3.svg" alt="头像"></span>
+            <span class="visit-item__name">武当山大黄狗</span>
+          </li>
+          <li class="visit-item">
+            <span class="visit-item__avatar"><img src="assets/avatar-girl3.jpg" alt="头像"></span>
+            <span class="visit-item__name">小岳来了24</span>
+          </li>
+          <li class="visit-item">
+            <span class="visit-item__avatar visit-item__avatar--live"><img src="assets/avatar-girl4.jpg" alt="头像"></span>
+            <span class="visit-item__name">哔哩哔哩王者荣耀赛事</span>
+            <span class="visit-item__live">直播中</span>
+          </li>
+          <li class="visit-item">
+            <span class="visit-item__avatar visit-item__avatar--live"><img src="assets/avatar4.svg" alt="头像"></span>
+            <span class="visit-item__name">罗太又破防了</span>
+            <span class="visit-item__live">直播中</span>
+          </li>
+          <li class="visit-item">
+            <span class="visit-item__avatar visit-item__avatar--live"><img src="assets/avatar5.svg" alt="头像"></span>
+            <span class="visit-item__name">小乘考研</span>
+            <span class="visit-item__live">直播中</span>
+          </li>
+          <li class="visit-item">
+            <span class="visit-item__avatar visit-item__avatar--live"><img src="assets/avatar6.svg" alt="头像"></span>
+            <span class="visit-item__name">哔哩哔哩会员购</span>
+            <span class="visit-item__live">直播中</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- 关注动态流 -->
+      <section class="follow-feed" aria-label="关注动态">
+
+        <article class="post">
+          <header class="post__header">
+            <img class="post__avatar" src="assets/avatar-girl2.jpg" alt="UP主头像">
+            <div class="post__user">
+              <span class="post__name">后宫补番</span>
+              <span class="post__time">19分钟前 · 投稿了视频</span>
+            </div>
+            <button class="post__more" type="button" aria-label="更多">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="6" cy="12" r="1.6" fill="currentColor"/>
+                <circle cx="12" cy="12" r="1.6" fill="currentColor"/>
+                <circle cx="18" cy="12" r="1.6" fill="currentColor"/>
+              </svg>
+            </button>
+          </header>
+          <a class="post__cover" href="#">
+            <img src="assets/cover7.svg" alt="视频封面">
+            <div class="post__stats"><span class="post__duration">02:08:32</span><span class="post__play">317 播放</span><span class="post__danmaku">0 弹幕</span></div>
+            <span class="post__play-btn" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M9 6.5v11l9-5.5z" fill="currentColor"/></svg>
+            </span>
+          </a>
+          <h3 class="post__title">【萤火虫的出嫁】全12集 超清中字（未删减版）周更</h3>
+          <footer class="post__actions">
+            <span class="post__action">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 5l7 7-7 7v-4H4v-6h10z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+              转发
+            </span>
+            <span class="post__action">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+              1
+            </span>
+            <span class="post__action">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 21V9l5-5 1 1-1 5h6a2 2 0 0 1 2 2l-2 7a2 2 0 0 1-2 2H7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+              5
+            </span>
+          </footer>
+        </article>
+
+        <article class="post">
+          <header class="post__header">
+            <img class="post__avatar" src="assets/avatar8.svg" alt="UP主头像">
+            <div class="post__user">
+              <span class="post__name">原神</span>
+              <span class="post__time">37分钟前</span>
+            </div>
+            <button class="post__more" type="button" aria-label="更多">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="6" cy="12" r="1.6" fill="currentColor"/>
+                <circle cx="12" cy="12" r="1.6" fill="currentColor"/>
+                <circle cx="18" cy="12" r="1.6" fill="currentColor"/>
+              </svg>
+            </button>
+          </header>
+          <a class="post__cover" href="#">
+            <img src="assets/cover8.svg" alt="视频封面">
+            <div class="post__stats"><span class="post__duration">00:56</span><span class="post__play">204.8万 播放</span><span class="post__danmaku">3366 弹幕</span></div>
+            <span class="post__play-btn" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M9 6.5v11l9-5.5z" fill="currentColor"/></svg>
+            </span>
+          </a>
+          <h3 class="post__title">联动抽奖 #原神 #米堤亚 #新版本前瞻</h3>
+          <footer class="post__actions">
+            <span class="post__action">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 5l7 7-7 7v-4H4v-6h10z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+              转发
+            </span>
+            <span class="post__action">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+              128
+            </span>
+            <span class="post__action">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 21V9l5-5 1 1-1 5h6a2 2 0 0 1 2 2l-2 7a2 2 0 0 1-2 2H7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+              2.1万
+            </span>
+          </footer>
+        </article>
+
+        <p class="feed__end">— 到底啦，去下载 App 看更多 —</p>
+      </section>
+
+    </main>
+
+    <!-- 底部导航栏：当前页为「关注」 -->
+    <nav class="tabbar" aria-label="底部导航">
+      <a class="tabbar__item" href="index.html">
+        <svg class="tabbar__icon" aria-hidden="true"><use href="#icon-shouye-zhihui"></use></svg>
+        <span class="tabbar__text">首页</span>
+      </a>
+      <a class="tabbar__item tabbar__item--active" href="follow.html">
+        <svg class="tabbar__icon" aria-hidden="true"><use href="#icon-fengche"></use></svg>
+        <span class="tabbar__text">关注</span>
+      </a>
+      <a class="tabbar__publish" href="#" aria-label="发布投稿">
+        <span class="tabbar__publish-plus">+</span>
+      </a>
+      <a class="tabbar__item" href="#">
+        <svg class="tabbar__icon" aria-hidden="true"><use href="#icon-vip"></use></svg>
+        <span class="tabbar__text">会员购</span>
+      </a>
+      <a class="tabbar__item" href="#">
+        <svg class="tabbar__icon" aria-hidden="true"><use href="#icon-bilibili"></use></svg>
+        <span class="tabbar__text">我的</span>
+      </a>
+    </nav>
+
+  </div>
+
+</body>
+</html>

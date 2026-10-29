@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="660" height="400" viewBox="0 0 660 400">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#00a1d6"/>
+      <stop offset="1" stop-color="#7b5cf0"/>
+    </linearGradient>
+  </defs>
+  <rect width="660" height="400" fill="url(#bg)"/>
+  <circle cx="560" cy="80" r="130" fill="#ffffff" opacity="0.12"/>
+  <circle cx="120" cy="340" r="150" fill="#ffffff" opacity="0.08"/>
+  <path d="M0 320 L140 200 L260 300 L420 170 L660 330 L660 400 L0 400 Z" fill="#ffffff" opacity="0.16"/>
+  <circle cx="330" cy="170" r="64" fill="#ffffff" opacity="0.92"/>
+  <path d="M312 140 L312 200 L364 170 Z" fill="#00a1d6"/>
+  <text x="40" y="70" font-family="Microsoft YaHei, sans-serif" font-size="34" font-weight="bold" fill="#ffffff">【必看】2026 综合近期热点盘点</text>
+  <text x="40" y="110" font-family="Microsoft YaHei, sans-serif" font-size="20" fill="#ffffff" opacity="0.85">UP主：哔哩哔哩官方 · 128.6万播放</text>
+</svg>

@@ -1,0 +1,802 @@
+/* ============================================================
+   哔哩哔哩移动端仿站 —— 《高级网页设计 I》实验：图像解决方案
+   学号：24002060403
+   姓名：张天润（姓名缩写 ztr，应用容器类名 .ztr-app）
+   布局技术：flex + grid（未使用 float）
+   全局 CSS：:root 变量 + 通配选择器重置 + body 默认样式
+   选择器规范：全部使用 class 选择器，未使用 id 选择器
+   ============================================================ */
+
+/* 应用容器：姓名缩写类名标识（全局） */
+.ztr-app {
+  max-width: 480px;
+}
+
+.svg-sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+/* ---------- 全局公共 CSS ---------- */
+:root {
+  --bili-pink: #fb7299;
+  --bili-blue: #00a1d6;
+  --text-primary: #18191c;
+  --text-secondary: #61666d;
+  --text-tertiary: #9499a0;
+  --bg-page: #f6f7f8;
+  --bg-card: #ffffff;
+  --bg-input: #f1f2f3;
+  --border-color: #e3e5e7;
+  --tabbar-height: 56px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  background-color: #e9ebee;      /* 桌面端两侧底色 */
+}
+
+body {
+  font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+  font-size: 14px;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+h1,
+h3 {
+  font-weight: 500;
+}
+
+button {
+  border: 0;
+  background: transparent;
+  font-family: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* 移动端视口容器：手机上占满全屏，桌面上居中模拟手机宽度 */
+.app {
+  max-width: 480px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background-color: var(--bg-page);
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.12);
+  position: relative;
+  padding-bottom: calc(var(--tabbar-height) + 12px); /* 给底部导航留出空间 */
+}
+
+/* ---------- 顶部导航：头像 + 搜索框 + 游戏中心 + 消息 ---------- */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background-color: #ffffff;
+}
+
+.app-header__avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.app-header__search {
+  flex: 1;
+  min-width: 0;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 10px;
+  border-radius: 17px;
+  background-color: var(--bg-input);
+}
+
+.app-header__search-icon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  color: var(--text-tertiary);
+}
+
+.app-header__search-text {
+  font-size: 12px;
+  color: var(--text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.app-header__icon-btn {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--text-primary);
+}
+
+.app-header__icon-btn svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* 消息未读红点 */
+.app-header__icon-btn--dot::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #f56c6c;
+  border: 1.5px solid #ffffff;
+}
+
+/* ---------- 分区标签栏（横向滚动 + 右侧菜单） ---------- */
+.channel-tabs {
+  position: sticky;
+  top: 50px;                      /* 顶部导航高度之下 */
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.channel-tabs__list {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  height: 44px;
+  padding: 0 12px;
+  overflow-x: auto;                /* 横向滚动，自适应内容宽度 */
+  scrollbar-width: none;
+}
+
+.channel-tabs__list::-webkit-scrollbar {
+  display: none;
+}
+
+.channel-tabs__item {
+  position: relative;
+  display: block;
+  padding: 4px 0;
+  font-size: 15px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.channel-tabs__item--active {
+  color: var(--bili-pink);
+  font-weight: 600;
+}
+
+.channel-tabs__item--active::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -4px;
+  transform: translateX(-50%);
+  width: 18px;
+  height: 3px;
+  border-radius: 2px;
+  background-color: var(--bili-pink);
+}
+
+.channel-tabs__menu {
+  width: 40px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--text-primary);
+}
+
+.channel-tabs__menu svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* ---------- 视频推荐流（活动大图 + 双列瀑布流） ---------- */
+.feed {
+  padding: 8px 8px 0;
+}
+
+.feed__grid {
+  display: grid;                    /* 双列栅格 */
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+/* 活动推广大图：横跨两列 */
+.feed-banner {
+  grid-column: 1 / -1;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: var(--bg-card);
+}
+
+.feed-banner__link {
+  position: relative;
+  display: block;
+}
+
+.feed-banner__img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+/* 底部渐变遮罩，保证白色标题可读 */
+.feed-banner__link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 60px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.65));
+}
+
+.feed-banner__badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.45);
+  color: #ffe9a8;
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  z-index: 1;
+}
+
+.feed-banner__title {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 8px;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+/* 视频卡片（上图下文） */
+.video-card {
+  background-color: var(--bg-card);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.video-card--wide {
+  grid-column: 1 / -1;              
+}
+
+.video-card__cover {
+  position: relative;
+  display: block;
+}
+
+.video-card__cover img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+.video-card--wide .video-card__cover img {
+  aspect-ratio: 16 / 9;
+}
+
+.video-card__cover::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 40px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.55));
+}
+
+.video-card__stats {
+  position: absolute;
+  left: 6px;
+  bottom: 6px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffffff;
+  font-size: 11px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.video-card__stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.video-card__stat svg {
+  width: 12px;
+  height: 12px;
+}
+
+/* 时长（封面右下角） */
+.video-card__duration {
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  z-index: 1;
+  color: #ffffff;
+  font-size: 11px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.video-card__body {
+  padding: 8px 8px 10px;
+}
+
+.video-card__title {
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--text-primary);
+  /* 两行溢出省略号 */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  min-height: 36px;
+}
+
+/* 标签 + UP 主名 */
+.video-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 6px;
+  overflow: hidden;
+}
+
+.video-card__tag {
+  flex-shrink: 0;
+  padding: 1px 4px;
+  border-radius: 3px;
+  background-color: var(--bg-input);
+  color: var(--text-tertiary);
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.video-card__upname {
+  min-width: 0;
+  font-size: 11px;
+  color: var(--text-tertiary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.feed__end {
+  text-align: center;
+  padding: 16px 0 20px;
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+/* ---------- 底部导航栏（下导航） ---------- */
+.tabbar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;                 /* 与 .app 容器对齐 */
+  height: var(--tabbar-height);
+  display: flex;
+  align-items: stretch;
+  background-color: #ffffff;
+  border-top: 1px solid var(--border-color);
+  /* 适配 iPhone 底部安全区 */
+  padding-bottom: env(safe-area-inset-bottom);
+  z-index: 100;
+}
+
+.tabbar__item {
+  flex: 1;                          /* 每个导航项等分宽度，自适应 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  color: var(--text-secondary);
+}
+
+.tabbar__item--active,
+.tabbar__item:active {
+  color: var(--bili-pink);
+}
+
+.tabbar__icon {
+  width: 24px;                    /* SVG 导航图标大小 */
+  height: 24px;
+  fill: currentColor;             /* 图标颜色跟随文字颜色 */
+  line-height: 1;
+}
+
+.tabbar__text {
+  font-size: 10px;
+  transform: scale(0.92);
+}
+
+/* 中间发布按钮 */
+.tabbar__publish {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tabbar__publish-plus {
+  width: 42px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  background-color: var(--bili-pink);
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 300;
+}
+
+/* ============================================================
+   关注页
+   ============================================================ */
+
+/* 顶部标题栏：标题居中 + 右侧编辑按钮 */
+.follow-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+}
+
+.follow-header__title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.follow-header__edit {
+  position: absolute;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+}
+
+.follow-header__edit svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* 分类标签：全部 / 视频 */
+.follow-tabs {
+  position: sticky;
+  top: 44px;
+  z-index: 99;
+  display: flex;
+  background-color: #ffffff;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.follow-tabs__item {
+  position: relative;
+  flex: 1;                          /* 两个标签等分 */
+  padding: 10px 0 12px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.follow-tabs__item--active {
+  color: var(--bili-pink);
+  font-weight: 600;
+}
+
+.follow-tabs__item--active::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 18px;
+  height: 3px;
+  border-radius: 2px;
+  background-color: var(--bili-pink);
+}
+
+.follow-main {
+  padding-bottom: 8px;
+}
+
+/* 最常访问 */
+.visit {
+  background-color: #ffffff;
+  padding: 12px 12px 14px;
+}
+
+.visit__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.visit__title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.visit__more {
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+/* 两行头像网格，超出宽度自动横向滚动 */
+.visit__grid {
+  display: grid;
+  grid-template-rows: repeat(2, auto);
+  grid-auto-flow: column;
+  grid-auto-columns: 66px;
+  gap: 12px 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+
+.visit__grid::-webkit-scrollbar {
+  display: none;
+}
+
+.visit-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.visit-item__avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: block;
+}
+
+.visit-item__avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* 直播中：粉色描边 */
+.visit-item__avatar--live {
+  border: 2px solid var(--bili-pink);
+}
+
+.visit-item__name {
+  margin-top: 4px;
+  width: 100%;
+  font-size: 10px;
+  line-height: 1.3;
+  color: var(--text-secondary);
+  text-align: center;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.visit-item__live {
+  position: absolute;
+  top: 40px;
+  padding: 0 4px;
+  border-radius: 6px;
+  background-color: var(--bili-pink);
+  color: #ffffff;
+  font-size: 9px;
+  line-height: 1.4;
+}
+
+/* 关注动态 */
+.follow-feed {
+  margin-top: 8px;
+}
+
+.post {
+  background-color: #ffffff;
+  padding: 12px;
+  border-bottom: 8px solid var(--bg-page);
+}
+
+.post__header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.post__avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.post__user {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.post__name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.post__time {
+  margin-top: 1px;
+  font-size: 11px;
+  color: var(--text-tertiary);
+}
+
+.post__more {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--text-tertiary);
+}
+
+.post__more svg {
+  width: 18px;
+  height: 18px;
+}
+
+.post__cover {
+  position: relative;
+  display: block;
+  margin-top: 8px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.post__cover img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+/* 时长 + 播放量 + 弹幕数（封面左下角同一行） */
+.post__stats {
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffffff;
+  font-size: 11px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.post__duration {
+  font-size: 12px;
+}
+
+/* 右下角圆形播放按钮 */
+.post__play-btn {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  z-index: 1;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.85);
+  color: var(--text-primary);
+}
+
+.post__play-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.post__title {
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-primary);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.post__actions {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  margin-top: 10px;
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+
+.post__action {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.post__action svg {
+  width: 16px;
+  height: 16px;
+}
